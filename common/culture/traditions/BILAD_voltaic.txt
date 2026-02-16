@@ -1,0 +1,74 @@
+tradition_savanna_raiders = {
+	category = regional
+
+	layers = {
+		0 = martial
+		1 = mena
+		4 = rider.dds
+	}
+
+	is_shown = {
+		OR = {
+			has_cultural_pillar = gur
+			custom_description = {
+				text = culture_in_dryland_desc
+				any_culture_county = {
+					any_county_province = {
+						terrain = drylands
+					}
+				}
+			}
+		}
+	}
+	
+	can_pick = {
+	}
+	
+	parameters = {
+		culture_can_raid_over_land_even_if_feudal_no_restrictions = yes
+                culture_can_raid_over_land_even_if_kurufaba_no_restrictions = yes
+                unlock_maa_nakombse_horsemen = yes
+                open_terrain_expert_trait_more_common = yes
+                commanders_likelier_to_gain_commander_traits = yes
+	}
+	
+	character_modifier = {
+		light_cavalry_damage_mult = 0.1
+		light_cavalry_screen_mult = 0.1
+                light_cavalry_recruitment_cost_mult = -0.10
+		siege_weapon_siege_value_mult = -0.2
+		retreat_losses = -0.2
+		hard_casualty_modifier = -0.1
+		advantage = -2
+		movement_speed = 0.1
+		raid_speed = 0.2
+		drylands_travel_danger = drylands_low_danger_reduction
+	}
+	
+	cost = {
+		prestige = {
+			add = {
+				value = tradition_base_cost
+				desc = BASE
+				format = "BASE_VALUE_FORMAT"
+			}
+			if = {
+				limit = {
+					NOT = {
+						culture_pillar:ethos_bellicose = { is_in_list = traits }
+					}
+				}
+				add = {
+					value = tradition_incompatible_ethos_penalty
+					desc = not_bellicose_desc
+				}
+			}
+			
+			multiply = tradition_replacement_cost_if_relevant
+		}
+	}
+	
+	ai_will_do = {
+		value = 100
+	}
+}

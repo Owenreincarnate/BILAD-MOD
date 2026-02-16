@@ -1,0 +1,63 @@
+sofa = {
+	type = skirmisher
+	
+	damage = 22
+	toughness = 18
+	pursuit = 13
+	screen = 16
+	
+	siege_value = 0.1
+
+	terrain_bonus = {
+		hills = { damage = 10 toughness = 4 }
+		forest = { toughness = 4 screen = 4 }
+		jungle = { toughness = 4 screen = 4 }
+	}
+
+	counters = {
+		heavy_infantry = 1.5
+	}
+
+	buy_cost = { gold = skirmisher_recruitment_cost }
+	low_maintenance_cost = { gold = skirmisher_low_maint_cost }
+	high_maintenance_cost = { gold = skirmisher_high_maint_cost }
+	
+	allowed_in_hired_troops = no 
+	
+	stack = 125
+	ai_quality = { value = culture_ai_weight_skirmishers }
+	icon = sofa
+}
+
+
+
+donso_ton = {
+	type = bowmen
+	
+	damage = 22
+	toughness = 18
+	pursuit = 13
+	screen = 16
+	
+	siege_value = 0.1
+
+	terrain_bonus = {
+		hills = { damage = 10 toughness = 4 }
+		forest = { toughness = 4 screen = 4 }
+		jungle = { toughness = 4 screen = 4 }
+	}
+
+	counters = {
+		skirmishers = 1
+	}
+
+	buy_cost = { gold = skirmisher_recruitment_cost }
+	low_maintenance_cost = { gold = skirmisher_low_maint_cost }
+	high_maintenance_cost = { gold = skirmisher_high_maint_cost }
+	
+	allowed_in_hired_troops = no 
+	
+	stack = 125
+	ai_quality = { value = culture_ai_weight_skirmishers }
+	icon = donso
+}

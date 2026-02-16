@@ -1,0 +1,259 @@
+
+tradition_griots = {
+	category = realm
+
+	layers = {
+		0 = learning
+		1 = mena
+		4 = diplomat.dds
+	}
+	is_shown = {
+		has_cultural_pillar = heritage_sahelian
+		has_cultural_pillar = heritage_senegambian
+		has_cultural_pillar = heritage_mande
+	}
+	can_pick = {
+		custom_tooltip = {
+			text = cannot_have_tradition_storytellers
+			NOT = { culture_tradition:tradition_storytellers = { is_in_list = traits } }
+		}
+		custom_tooltip = {
+			text = cannot_have_tradition_fp1_northern_stories
+			NOT = { culture_tradition:tradition_fp1_northern_stories = { is_in_list = traits } }
+		}
+		
+	}
+	
+	character_modifier = {
+ 		owned_scheme_secrecy_add  = -15
+		diplomacy = 1
+	}
+	parameters = {
+		better_ward_education = yes
+		can_appoint_court_griots = yes
+		invite_griot_active = yes
+		griot_trait_more_common = yes
+		characters_are_better_court_griots = yes
+	}
+	
+	cost = {
+		prestige = {
+			add = {
+				value = tradition_base_cost
+				desc = BASE
+				format = "BASE_VALUE_FORMAT"
+			}
+			if = {
+				limit = {
+					NOR = {
+						culture_pillar:ethos_courtly = { is_in_list = traits }
+						culture_pillar:ethos_communal = { is_in_list = traits }
+						culture_pillar:ethos_stoic = { is_in_list = traits }
+					}
+				}
+				add = {
+					value = tradition_incompatible_ethos_penalty
+					desc = not_courtly_communal_or_stoic_desc
+				}
+			}
+			if = {
+				limit = {
+					trigger_if = {
+						limit = {
+							scope:character = {
+								is_ai = no
+							}
+						}
+						NOT = {
+							any_ruler = {
+								count >= 3
+								culture = prev
+								primary_title.tier >= tier_county
+								has_trait = poet
+							}
+						}
+					}
+					trigger_else = {
+						always = no
+					}
+				}
+				add = {
+					value = tradition_unfulfilled_criteria_penalty
+					desc = rulers_with_poet_desc
+				}
+			}
+			
+			multiply = tradition_replacement_cost_if_relevant
+		}
+	}
+	
+	ai_will_do = {
+		value = 100
+	}
+}
+
+
+
+
+tradition_mud_masons = {
+	category = regional
+
+	layers = {
+		0 = learning
+		1 = mena
+		4 = RICE_african_mud_masons.dds
+	}
+
+	is_shown = {
+		OR = {
+			has_cultural_pillar = heritage_sahelian
+			has_cultural_pillar = heritage_mande
+			has_cultural_pillar = heritage_senegambian
+			has_cultural_pillar = heritage_saharan
+		}
+	}
+
+	can_pick = {
+		OR = {
+			has_cultural_pillar = heritage_sahelian
+			has_cultural_pillar = heritage_mande
+			has_cultural_pillar = heritage_senegambian
+			has_cultural_pillar = heritage_saharan
+		}
+	}
+	
+	parameters = {
+		unlock_rice_african_mud_mason_decision = yes
+	}
+
+	character_modifier = {
+		monthly_prestige_from_buildings_mult = 0.05
+		monthly_piety_from_buildings_mult = 0.05
+	}
+
+	county_modifier = {
+		build_gold_cost = -0.06
+		build_speed = -0.10
+        drylands_development_growth_factor = 0.05
+		drylands_construction_gold_cost = -0.05
+                
+	}
+	
+	cost = {
+		prestige = {
+			add = {
+				value = tradition_base_cost
+				desc = BASE
+				format = "BASE_VALUE_FORMAT"
+			}
+			
+			if = {
+				limit = {
+					NOR = {
+						culture_pillar:ethos_communal = { is_in_list = traits }
+						culture_pillar:ethos_spiritual = { is_in_list = traits }
+						culture_pillar:ethos_stoic = { is_in_list = traits }
+					}
+				}
+				add = {
+					value = tradition_incompatible_ethos_penalty
+					desc = not_communal_spiritual_or_stoic_desc
+				}
+			}
+			
+			multiply = tradition_replacement_cost_if_relevant
+		}
+	}
+	
+	ai_will_do = {
+		value = 100
+	}
+}
+
+tradition_mandenkalu_aristocracy = {
+	category = realm
+
+	layers = {
+		1 = martial
+		1 = mena
+		3 = rider.dds
+	}
+
+	is_shown = {
+		OR = {
+			has_cultural_pillar = mande
+			custom_description = {
+				text = culture_in_dryland_desc
+				any_culture_county = {
+					any_county_province = {
+						terrain = drylands
+					}
+				}
+			}
+		}
+	}
+	
+	can_pick = {
+	}
+	
+	parameters = {
+                culture_can_raid_over_land_even_if_kurufaba_no_restrictions = yes
+                unlock_maa_mandenkalu_cavalry = yes
+				unlock_maa_sofa_auxiliary = yes
+				unlock_maa_kele_bolo = yes
+				drylands_advantage = 2
+				knights_slightly_more_prone_to_injury = yes
+				can_recruit_drylands_specialist = yes
+				martial_education_more_valued = yes
+				prowess_traits_more_valued = yes
+                rough_terrain_expert_trait_more_common = yes
+                commanders_likelier_to_gain_commander_traits = yes
+	}
+	
+	character_modifier = {
+		skirmishers_damage_mult = 0.1
+		light_cavalry_screen_mult = 0.1
+        skirmishers_recruitment_cost_mult = -0.10
+		light_cavalry_recruitment_cost_mult = -0.05
+        light_cavalry_damage_mult = 0.1
+		heavy_cavalry_recruitment_cost_mult = -0.05
+		siege_weapon_siege_value_mult = 0.2
+		retreat_losses = 0.1
+		hard_casualty_modifier = -0.1
+		advantage = -2
+		levy_size = 0.10
+		knight_limit = 2
+		movement_speed = 0.1
+		monthly_marshal_lifestyle_xp_gain_mult = 0.05
+		
+		
+
+	}
+	
+	cost = {
+		prestige = {
+			add = {
+				value = tradition_base_cost
+				desc = BASE
+				format = "BASE_VALUE_FORMAT"
+			}
+			if = {
+				limit = {
+					NOT = {
+						culture_pillar:ethos_bellicose = { is_in_list = traits }
+					}
+				}
+				add = {
+					value = tradition_incompatible_ethos_penalty
+					desc = not_bellicose_desc
+				}
+			}
+			
+			multiply = tradition_replacement_cost_if_relevant
+		}
+	}
+	
+	ai_will_do = {
+		value = 100
+	}
+}

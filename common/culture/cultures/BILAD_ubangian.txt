@@ -1,0 +1,25 @@
+gbaya = {
+	color = akan
+	
+	ethos = ethos_communal
+	heritage = heritage_ubangian
+	language = language_
+	martial_custom = martial_custom_equal
+	traditions = {
+		tradition_
+		tradition_mystical_ancestors
+		tradition_jungle_dwellers
+		tradition_bush_hunting
+		tradition_eldership
+	}
+	
+	name_list = name_list_gbaya
+	
+	coa_gfx = { west_african_group_coa_gfx }
+	building_gfx = { african_building_gfx mena_building_gfx }
+	clothing_gfx = { african_clothing_gfx }
+	unit_gfx = { sub_sahran_unit_gfx }
+	
+	ethnicities = {
+		10 = african
+	}
