@@ -1,6 +1,6 @@
-NJominiMap = {
-	WORLD_EXTENTS_X = 9799
+﻿NJominiMap = {
+	WORLD_EXTENTS_X = 9599
 	WORLD_EXTENTS_Y = 72
-	WORLD_EXTENTS_Z = 9499
+	WORLD_EXTENTS_Z = 9599
 	WATERLEVEL = 4.6 ### 0.06 in 0-1, 19 in 0-255, use 11% HSB in Photoshop
 }

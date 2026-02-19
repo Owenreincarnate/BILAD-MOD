@@ -1,0 +1,6 @@
+﻿
+NCamera = {
+	PANNING_WIDTH =  9600
+	PANNING_HEIGHT = 9600
+}
+
