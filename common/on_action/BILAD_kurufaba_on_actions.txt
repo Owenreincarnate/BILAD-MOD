@@ -1,0 +1,8 @@
+﻿on_yearly_playable = {
+	on_actions = { bilad_kurufaba_yearly_pulse }
+}
+
+bilad_kurufaba_yearly_pulse = {
+	trigger = { is_kurufaba_government_trigger = yes }
+	effect = { bilad_kurufaba_refresh_wealth_counties_effect = yes }
+}

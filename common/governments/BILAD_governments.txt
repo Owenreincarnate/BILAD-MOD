@@ -1,0 +1,89 @@
+﻿kurufaba_government = {
+	government_rules = {
+		create_cadet_branches = yes
+		rulers_should_have_dynasty = yes
+		legitimacy = yes
+		dynasty_named_realms = yes
+		always_use_patronym = yes
+	}
+
+	royal_court = any
+
+	primary_holding = castle_holding
+	fallback = 2
+	valid_holdings = { temple_citadel_holding }
+	required_county_holdings = { castle_holding city_holding church_holding }
+
+	can_get_government = {
+		is_landed = yes
+		bilad_is_kurufaba_culture_trigger = yes
+		NOT = { government_has_flag = cannot_be_vassal_or_liege }
+	}
+
+	vassal_contract_group = kurufaba_vassal
+
+	ai = {
+		use_legends = yes
+	}
+
+	# Yusseter:
+	# Master doc literally asks for "-25% Title Revocation Acceptance from Powerful Vassals".
+	# That is not implemented directly here yet, because the clean literal version belongs in
+	# the revoke-title interaction / acceptance path, not in a simple government modifier.
+	# For now Kurufaba simulates the same political tension through opinion_of_liege pressure:
+	# - same-culture vassals are easier to keep loyal
+	# - higher Crown Authority creates pushback
+	# - powerful vassals dislike central pressure even more
+	# If we later want the exact revocation-acceptance malus, the safer route is to add a
+	# Kurufaba-specific acceptance penalty in the revoke-title interaction and gate it with:
+	# scope:recipient = {
+	# 	is_powerful_vassal = yes
+	# 	liege = { is_kurufaba_government_trigger = yes } # Or: liege = { has_government = kurufaba_government }
+	# }
+	opinion_of_liege = {
+		scope:vassal = {
+			if = {
+				limit = { culture = scope:liege.culture }
+				value = 10
+			}
+
+			if = {
+				limit = {
+					scope:liege = { has_realm_law = crown_authority_2 }
+				}
+				value = -5
+			}
+			else_if = {
+				limit = {
+					scope:liege = { has_realm_law = crown_authority_3 }
+				}
+				value = -10
+			}
+
+			if = {
+				limit = {
+					is_powerful_vassal = yes
+				}
+				value = -5
+			}
+		}
+	}
+
+	character_modifier = {
+		monthly_prestige = 0.3
+		monthly_county_control_growth_factor = 0.1
+	}
+
+	flags = {
+		government_is_kurufaba
+		government_is_settled
+		government_uses_crown_authority
+		government_uses_domain_limit
+	}
+
+	mechanic_type = feudal
+
+	color = hsv{ 0.58 0.48 0.63 } # Yusseter: "dark-lightish Blue color" like what Ezekai wanted :)
+	realm_mask_offset = { 0.00 0.02 }
+	realm_mask_scale = { 1 1 }
+}

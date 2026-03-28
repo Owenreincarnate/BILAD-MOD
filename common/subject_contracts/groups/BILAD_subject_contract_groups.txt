@@ -1,0 +1,8 @@
+﻿kurufaba_vassal = {
+	contracts = {
+		kurufaba_tribute_obligations
+		war_declaration_rights
+		council_rights
+		title_revocation_rights
+	}
+}

@@ -1,0 +1,5 @@
+﻿# Yusseter: Applied by bilad_kurufaba_refresh_wealth_counties_effect.
+bilad_kurufaba_wealth_county_modifier = {
+	icon = county_modifier_opinion_positive
+	tax_mult = 0.15
+}

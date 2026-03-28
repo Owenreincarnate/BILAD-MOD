@@ -1,0 +1,21 @@
+﻿kurufaba_tribute_obligations = {
+	display_mode = hidden
+	can_be_changed = { always = no }
+
+	obligation_levels = {
+		default = {
+			levies = 0.05
+			tax = {
+				value = 0.08
+				max = 0.30
+				scope:liege = {
+					add = {
+						value = 0.04
+						multiply = prestige_level
+					}
+				}
+			}
+			subject_opinion = -5
+		}
+	}
+}

@@ -1,0 +1,48 @@
+﻿# Yusseter:
+# This is an explicit culture list on purpose, not a heritage check.
+# Kurufaba is meant for the Mali / wider Mande political sphere, but the mod's current culture setup is not cleanly grouped under one heritage.
+# Example: malinke is one of the core Kurufaba cultures, yet it currently uses heritage_west_african instead of heritage_mande.
+# So this trigger stays as a hand-picked culture gate until the history and culture setup are finalized.
+bilad_is_kurufaba_culture_trigger = {
+	OR = {
+		culture = culture:soninke
+		culture = culture:bozo
+		culture = culture:malinke
+		culture = culture:bobo
+		culture = culture:bambara
+		culture = culture:soussou
+		culture = culture:yalunka
+		culture = culture:vai
+	}
+}
+
+bilad_has_kurufaba_liege_trigger = {
+	exists = liege
+	liege = { is_kurufaba_government_trigger = yes }
+}
+
+is_kurufaba_government_trigger = {
+	government_has_flag = government_is_kurufaba
+	is_ruler = yes
+}
+
+bilad_can_use_pay_tribute_to_mansa_decision_trigger = {
+	is_landed = yes
+	is_ruler = yes
+	is_adult = yes
+	bilad_has_kurufaba_liege_trigger = yes
+}
+
+# Yusseter:
+# "Gold or trade counties" is intentionally split into two detection paths.
+# Gold mines are automatic: any county with the wap_gold_mines_01+ chain will count.
+# Major trade counties are manual on purpose, so we can hand-pick which markets matter.
+# To mark a county as a Kurufaba trade node, set a county-title variable:
+# set_variable = bilad_major_trade_county
+# This is best done in title history or in a setup event once we finalize the trade map.
+bilad_is_kurufaba_wealth_county_trigger = {
+	OR = {
+		has_variable = bilad_major_trade_county
+		title_province = { has_building_or_higher = wap_gold_mines_01 }
+	}
+}

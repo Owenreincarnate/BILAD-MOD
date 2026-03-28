@@ -1,0 +1,47 @@
+﻿bilad_pay_tribute_to_mansa_decision = {
+	picture = { reference = "gfx/interface/illustrations/decisions/decision_found_kingdom.dds" }
+	ai_check_interval = 24
+	sort_order = 40
+
+	is_shown = {
+		bilad_can_use_pay_tribute_to_mansa_decision_trigger = yes
+	}
+
+	is_valid_showing_failures_only = {
+		NOT = { has_character_flag = bilad_paid_tribute_to_mansa_recently }
+		gold >= 25
+		liege = { is_alive = yes }
+	}
+
+	is_valid = {
+		NOT = { has_character_flag = bilad_paid_tribute_to_mansa_recently }
+		gold >= 25
+		liege = { is_alive = yes }
+	}
+
+	effect = {
+		liege = { save_scope_as = bilad_kurufaba_mansa }
+		trigger_event = bilad_kurufaba.0001
+	}
+
+	ai_potential = {
+		bilad_can_use_pay_tribute_to_mansa_decision_trigger = yes
+	}
+
+	ai_will_do = {
+		base = 5
+
+		modifier = {
+			add = 15
+			opinion = { target = liege value >= 25 }
+		}
+		modifier = {
+			add = 20
+			opinion = { target = liege value >= 60 }
+		}
+		modifier = {
+			add = 10
+			gold >= 150
+		}
+	}
+}

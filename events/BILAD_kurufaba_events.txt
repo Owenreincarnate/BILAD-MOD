@@ -1,0 +1,95 @@
+﻿namespace = bilad_kurufaba
+
+bilad_kurufaba.0001 = {
+	type = character_event
+	theme = realm
+
+	immediate = {
+		if = {
+			limit = { NOT = { exists = scope:bilad_kurufaba_mansa } }
+			liege = { save_scope_as = bilad_kurufaba_mansa }
+		}
+	}
+
+	option = {
+		name = bilad_kurufaba.0001.a
+		trigger = { gold >= 25 }
+
+		remove_short_term_gold = 25
+		add_prestige = 10
+		add_character_flag = { flag = bilad_paid_tribute_to_mansa_recently years = 2 }
+
+		scope:bilad_kurufaba_mansa = {
+			add_gold = 25
+			add_opinion = {
+				target = root
+				modifier = disappointed_opinion
+				opinion = -5
+			}
+		}
+
+		ai_chance = {
+			base = 30
+			modifier = {
+				add = 50
+				gold < 75
+			}
+		}
+	}
+
+	option = {
+		name = bilad_kurufaba.0001.b
+		trigger = { gold >= 60 }
+
+		remove_short_term_gold = 60
+		add_prestige = 30
+		add_character_flag = { flag = bilad_paid_tribute_to_mansa_recently years = 2 }
+
+		scope:bilad_kurufaba_mansa = {
+			add_gold = 60
+			add_opinion = {
+				target = root
+				modifier = grateful_opinion
+				opinion = 10
+			}
+		}
+
+		ai_chance = {
+			base = 50
+			modifier = {
+				add = 20
+				opinion = { target = scope:bilad_kurufaba_mansa value >= 40 }
+			}
+		}
+	}
+
+	option = {
+		name = bilad_kurufaba.0001.c
+		trigger = { gold >= 120 }
+
+		remove_short_term_gold = 120
+		add_prestige = 75
+		add_character_flag = { flag = bilad_paid_tribute_to_mansa_recently years = 2 }
+
+		scope:bilad_kurufaba_mansa = {
+			add_gold = 120
+			add_opinion = {
+				target = root
+				modifier = grateful_opinion
+				opinion = 25
+			}
+		}
+
+		ai_chance = {
+			base = 20
+			modifier = {
+				add = 40
+				gold >= 200
+			}
+			modifier = {
+				add = 40
+				opinion = { target = scope:bilad_kurufaba_mansa value >= 60 }
+			}
+		}
+	}
+}

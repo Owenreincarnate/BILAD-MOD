@@ -1,0 +1,20 @@
+﻿bilad_kurufaba_refresh_wealth_counties_effect = {
+	# Yusseter:
+	# This effect converts the wealth trigger into a real county modifier.
+	# Personally held counties are refreshed once per yearly playable pulse.
+	# If we later want instant updates, this same logic can be moved to a tighter on_action.
+	every_held_title = {
+		limit = { tier = tier_county }
+
+		remove_county_modifier = bilad_kurufaba_wealth_county_modifier
+
+		if = {
+			limit = { bilad_is_kurufaba_wealth_county_trigger = yes }
+
+			add_county_modifier = {
+				modifier = bilad_kurufaba_wealth_county_modifier
+				days = 400
+			}
+		}
+	}
+}
