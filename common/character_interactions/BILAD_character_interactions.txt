@@ -1,0 +1,196 @@
+# most of this is copied from the vanilla gift interaction, with flavour changed
+# removed option to refuse, just auto accepts and creates a toast notification
+# removed house relation gain, probably too op to allow the player to stack with regular gifts
+
+BILAD_gift_cattle = {
+	interface_priority = 100
+	common_interaction = yes
+	name = BILAD_gift_cattle.n
+	icon = icon_herd
+	category = interaction_category_diplomacy
+    desc = BILAD_gift_cattle.desc
+
+	greeting = positive
+	notification_text = SEND_CATTLE_PROPOSAL
+
+	ai_targets = {
+		ai_recipients = scripted_relations
+		ai_recipients = liege
+		ai_recipients = head_of_faith
+	}
+	ai_targets = {
+		ai_recipients = neighboring_rulers
+		ai_recipients = peer_vassals
+		max = 10
+	}
+	ai_targets = {
+		ai_recipients = vassals
+		max = 10
+	}
+	ai_target_quick_trigger = {
+		adult = yes
+	}
+	ai_frequency_by_tier = {
+		barony = 120
+		county = 60
+		duchy = 60
+		kingdom = 36
+		empire = 36
+		hegemony = 36
+	}
+
+	is_shown = {
+		scope:actor != scope:recipient
+		scope:actor.culture = {
+			has_cultural_tradition = tradition_fulbe_pastorialism
+		}
+		scope:recipient.culture = {
+			has_cultural_tradition = tradition_fulbe_pastorialism
+		}
+        scope:actor = {
+            is_ruler = yes
+        }
+        scope:recipient = {
+            OR = {
+                # is_ruler also counts for adventurers 
+                is_ruler = yes
+                is_courtier_of = scope:actor
+            }
+        }
+    }
+
+    is_valid_showing_failures_only = {
+        scope:actor.gold >= 60
+		scope:recipient = { 
+			is_imprisoned = no
+		}
+    }
+
+    cost = {
+        gold = 60
+    }
+
+    on_accept = {
+		scope:recipient = {
+			# Verify that they could become friend
+			if = {
+				limit = {
+					NAND = {
+						has_relation_friend = scope:actor
+						has_relation_lover = scope:actor
+						has_relation_soulmate = scope:actor
+						has_relation_best_friend = scope:actor
+					}
+				}
+				gifting_leads_towards_friendship_effect = yes
+			}
+		}
+
+        scope:actor = {
+			# Warning for multiple gifts
+			if = {
+				limit = {
+                    is_ai = no
+					scope:recipient = {
+						has_opinion_modifier = {
+							target = scope:actor
+							modifier = gifted_cow
+						}
+					}
+				}
+				custom_tooltip = ALREADY_SENT_COWS_WARNING
+			}
+			send_interface_message = {
+				type = event_gold_neutral
+				title = gift_cow_notification
+				right_icon = scope:recipient
+				stress_impact = {
+					greedy = medium_stress_impact_gain
+				}
+				if = {
+					limit = {
+						scope:recipient = {
+							NOT = {
+								is_heir_of = scope:actor
+							}
+						}
+					}
+					stress_impact = {
+						generous = medium_stress_impact_loss
+					}
+				}
+				if = {
+					limit = {
+						NOT = {
+							scope:recipient = {
+								has_opinion_modifier = {
+									target = scope:actor
+									modifier = gifted_cow
+								}
+							}
+						}
+					}
+					scope:recipient = {
+                        add_opinion = {
+                            target = scope:actor
+                            modifier = gifted_cow
+                            opinion = 40
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+	ai_potential = {
+		is_available_at_peace_ai_adult = yes
+		ai_greed < medium_positive_ai_value
+		short_term_gold >= gift_interaction_cutoff
+		NOT = {
+			has_trait = greedy
+		}
+		NOT = { has_variable = conqueror }
+		ai_should_focus_on_building_in_their_capital = no
+	}
+
+  	auto_accept = {
+    	always = yes
+ 	}
+
+	ai_will_do = {
+		base = 100
+		
+		modifier = { # Do not send double-gifts
+			factor = 0
+			scope:recipient = {
+				has_opinion_modifier = {
+					target = scope:actor
+					modifier = gifted_cow
+				}
+			}
+        }
+
+        modifier = {
+			factor = 0.1
+			scope:recipient = { # Dont often send gifts to people who dislike you, unless they are your leige
+				opinion = {
+					target = scope:actor
+					value < 0
+				}
+				NAND = {
+					is_vassal_of = scope:actor
+					scope:actor = {
+						ai_rationality > 50
+					}
+				}
+			}
+		}
+
+		modifier = { # Dont send gifts to rivals often
+			factor = 0.1
+			scope:recipient = {
+				has_relation_rival = scope:actor
+			}
+		}
+    }
+}

@@ -1,0 +1,7 @@
+﻿l_english:
+ BILAD_gift_cattle.n: "Send a gift of cattle"
+ BILAD_gift_cattle.desc: "Send a small herd of cattle to increase [recipient.GetShortUINamePossessiveNoTooltip] opinion of you"
+ SEND_CATTLE_PROPOSAL: "Please accept this gift, a collection of cattle taken from my strongest herd. May they bring you much fortune!"
+ gifted_cow: "Gifted cattle"
+ ALREADY_SENT_COWS_WARNING: "@warning_icon! #X You have recently gifted cattle to [recipient.GetShortUIName], sending more will #underline override#! the existing [opinion|E] modifier!#!"
+ gift_cow_notification: "Sent a collection of cattle"
