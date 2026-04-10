@@ -1,0 +1,202 @@
+namespace = fest_fonio
+
+
+# Start event for festival
+fest_fonio.0001 = {
+    type = activity_event
+    title = fest_fonio.0001.n
+    desc = fest_fonio.0001.desc
+    theme = feast_activity
+
+    left_portrait = {
+        character = scope:host
+    }
+
+    immediate = {
+
+    }
+
+    option = {
+        name = fest_fonio.0001.a
+    }
+}
+
+# The first harvest
+fest_fonio.0002 = {
+    type = activity_event
+    title = fest_fonio.0002.n
+    desc = fest_fonio.0002.desc
+    theme = feast_activity
+
+    left_portrait = {
+        character = root
+    }
+
+    immediate = {
+
+    }
+
+    # Honor ancestors first
+    option = {
+        name = fest_fonio.0002.a
+        root = {
+            add_piety = minor_piety_gain
+            add_prestige = minor_prestige_gain
+            add_short_term_gold = -20
+        }
+    }
+
+    # Feed people first
+    option = {
+        name = fest_fonio.0002.b
+        root = {
+            add_piety = -200
+        }
+    }
+}
+
+# Harvest dance
+fest_fonio.0003 = {
+    type = activity_event
+    title = fest_fonio.0003.n
+    desc = fest_fonio.0003.desc
+    theme = feast_activity
+
+    left_portrait = {
+        character = scope:host
+        animation = thinking
+    }
+
+    immediate = {
+
+    }
+
+    # Join the celebration
+    option = {
+        name = fest_fonio.0003.a
+        root = {
+            add_prestige = minor_prestige_gain
+        }
+		scope:activity.activity_location.county = {
+			add_county_modifier = {
+				modifier = fonio_fest_joined_celebration
+				years = 5
+	    	}    
+        }    
+    }
+
+    # Observe as ruler
+    option = {
+        name = fest_fonio.0003.b
+        root = {
+            add_prestige = minor_prestige_gain
+            add_legitimacy = minor_legitimacy_gain
+        }
+        scope:activity.activity_location.county = {
+            if = {
+                limit = {county_control < 100}
+                change_county_control = 20
+            }
+        }
+    }
+
+    # Perform a war dance
+    option = {
+        name = fest_fonio.0003.c
+        root = {
+            add_prestige = minor_prestige_gain
+            add_martial_lifestyle_xp = medium_lifestyle_xp
+        }
+    }
+}
+
+# Settling disputes
+fest_fonio.0004 = {
+    type = activity_event
+    title = fest_fonio.0004.n
+    desc = fest_fonio.0004.desc
+    theme = feast_activity
+
+    left_portrait = {
+        character = scope:host
+        animation = thinking
+    }
+
+    immediate = {
+
+    }
+
+    # Encourage peace
+    option =  { 
+        name = fest_fonio.0004.a
+        root = {
+            add_prestige = minor_prestige_gain
+        }
+        scope:activity.activity_location.county = {
+            if = {
+                limit = {county_control < 100}
+                change_county_control = 20
+            }
+        }
+        stress_impact = {
+            arrogant = medium_stress_impact_gain
+            forgiving = medium_stress_impact_loss
+        }
+    }
+
+    # Support one of them
+    option =  { 
+        name = fest_fonio.0004.b
+        scope:activity.activity_location.county = {
+            if = {
+                limit = {county_control > 0}
+                change_county_control = -15
+                add_county_modifier = {
+                    modifier = fonio_fest_local_support
+                    years = 5
+                }
+            }  
+        }  
+        stress_impact = {
+            arrogant = medium_stress_impact_gain
+        }   
+    }
+
+    # Act above it
+    option = {
+        name = fest_fonio.0004.c
+        root = {
+            add_legitimacy = minor_legitimacy_gain
+            add_prestige = minor_prestige_gain
+        }
+        
+        stress_impact = {
+            just = medium_stress_impact_gain
+            arrogant = medium_stress_impact_loss
+            lazy = minor_stress_impact_loss
+        }
+    }
+}
+
+# End event 
+fest_fonio.0005 = {
+    type = activity_event
+    title = fest_fonio.0005.n
+    desc = fest_fonio.0005.desc
+    theme = feast_activity
+
+    left_portrait = {
+        character = scope:host
+        animation = thinking
+    }
+
+    immediate = {
+        add_gold = 40
+        add_piety = 100
+        add_prestige = 200
+    }
+
+    option =  {
+        name = fest_fonio.0005.a
+    }
+}
