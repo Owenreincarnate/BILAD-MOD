@@ -3,10 +3,10 @@
 # removed house relation gain, probably too op to allow the player to stack with regular gifts
 
 BILAD_gift_cattle = {
-	interface_priority = 100
+	interface_priority = 40
 	common_interaction = yes
 	name = BILAD_gift_cattle.n
-	icon = icon_herd
+	icon = herd_interaction
 	category = interaction_category_diplomacy
     desc = BILAD_gift_cattle.desc
 
@@ -134,7 +134,6 @@ BILAD_gift_cattle = {
                         add_opinion = {
                             target = scope:actor
                             modifier = gifted_cow
-                            opinion = 40
                         }
                     }
                 }

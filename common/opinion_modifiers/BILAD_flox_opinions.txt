@@ -1,0 +1,5 @@
+gifted_cow = {
+    opinion = 30
+    years = 5
+    decaying = yes
+}
