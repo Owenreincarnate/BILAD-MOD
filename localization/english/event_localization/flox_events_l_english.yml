@@ -1,2 +1,34 @@
 ﻿l_english:
- 
+ festival_first_fonio: "Festival of the First Fonio"
+ festival_first_fonio_desc: "Fonio grass is a cornerstone of our agricultural production, and as such its harvest routinely prompts festivals and celebrations."
+ festival_first_fonio_host_desc: ""
+ harvest_festival: "Harvest Festival"
+ harvest_festival_desc: ""
+ festival_first_fonio_host_an_a: "the"
+ festival_first_fonio_selection_tooltip: ""
+ festival_first_fonio_conclusion_desc: ""
+
+ fest_fonio.0001.n: "The Gathering"
+ fest_fonio.0001.desc: ""
+ fest_fonio.0001.a: "Let the festival begin!"
+
+ fest_fonio.0002.n: "The First Harvest"
+ fest_fonio.0002.desc: ""
+ fest_fonio.0002.a: "We must respect our ancestors."
+ fest_fonio.0002.b: "The needs of my people come first."
+
+ fest_fonio.0003.n: "The Harvest Dance"
+ fest_fonio.0003.desc: ""
+ fest_fonio.0003.a: "Join the celebration."
+ fest_fonio.0003.b: "Observe the festivities."
+ fest_fonio.0003.c: "Lead a war dance."
+
+ fest_fonio.0004.n: "Settling Disputes"
+ fest_fonio.0004.desc: ""
+ fest_fonio.0004.a: "Encourage a compromise."
+ fest_fonio.0004.b: "Side with one of the landholders."
+ fest_fonio.0004.c: "Make clear you are above their petty squabbles."
+
+ fest_fonio.0005.n: "The Conclusion"
+ fest_fonio.0005.desc: ""
+ fest_fonio.0005.a: "If only every year could be as bountiful as this."

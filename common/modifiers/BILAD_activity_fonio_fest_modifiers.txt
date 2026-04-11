@@ -1,10 +1,10 @@
 fonio_fest_joined_celebration = {
-    icon = feast_positive
+    icon = county_fertility_positive
     county_opinion_add = 15
 }
 
 fonio_fest_local_support = {
-    icon = feast_neutral
+    icon = county_fertility_mixed
     county_opinion_add = -10
     tax_mult = 0.1
     levy_size = 0.1

@@ -65,6 +65,17 @@ festival_first_fonio = {
 
 	# Guests - only from court, smaller scale activity
 
+
+	host_intents = {
+		default = reduce_stress_intent
+		intents = { reduce_stress_intent }
+	}
+
+	guest_intents = {
+		intents = { reduce_stress_intent }
+		default = reduce_stress_intent
+	}
+
 	allow_zero_guest_invites = yes
 	open_invite = no
     max_guests = 20
@@ -107,11 +118,15 @@ festival_first_fonio = {
 	# Costs
 
     cost = {
-        gold = small_gold_cost
+        gold = {
+			value = 40
+		}
     }
 
     ui_predicted_cost = {
-        gold = small_gold_cost
+        gold = {
+			value = 40
+		}
     }
 
 	# Phases
@@ -124,66 +139,77 @@ festival_first_fonio = {
 				if = {
 					limit = {this = scope:host}
 					scope:activity = { progress_activity_phase_after = { weeks = 3 } }
-				}
-				scope:host = {
-					trigger_event = fest_fonio.0001
+					scope:host = {
+						trigger_event = fest_fonio.0001
+					}
 				}
 			}
 
 			on_weekly_pulse = {
 				# Fires for every attendee
-				root.culture = {
-					if = {
-						limit = {
-							NOT = {
-								has_variable = fonio_fest_week
+				if = {
+					limit = {
+						this = scope:host
+					}
+					scope:activity = {
+						if = {
+							limit = {
+								NOT = {
+									has_variable = fonio_fest_week
+								}
+							}
+							set_variable = {
+								name = fonio_fest_week
+								value = 1
 							}
 						}
-						set_variable = {
-							name = fonio_fest_week
-							value = 1
-						}
-					}
-					else = {
-						change_variable = {
-							name = fonio_fest_week
-							add = 1
+						else = {
+							change_variable = {
+								name = fonio_fest_week
+								add = 1
+							}
 						}
 					}
 				}
-
+					
 				if = {
-					limit = {scope:activity.var:week_flag = 1}
+					limit = {
+						scope:activity.var:fonio_fest_week = 1
+						this = scope:host
+					}
 					scope:host = {
-						trigger_event = {
-							fest_fonio.0002
-						}
+						trigger_event = fest_fonio.0002
 					}
 				}
 
 				else_if = {
-					limit = {scope:activity.var:week_flag = 2}
+					limit = {
+						scope:activity.var:fonio_fest_week = 2
+						this = scope:host
+					}
 					scope:host = {
-						trigger_event = {
-							fest_fonio.0003
-						}
+						trigger_event = fest_fonio.0003
 					}
 				}
 
 				else_if = {
-					limit = {scope:activity.var:week_flag = 3}
+					limit = {
+						scope:activity.var:fonio_fest_week = 3
+						this = scope:host
+					}
 					scope:host = {
-						trigger_event = {
-							fest_fonio.0004
-						}
+						trigger_event = fest_fonio.0004
 					}
 				}
 			}
 
 			on_end = {
-				scope:host = {
-					trigger_event = {
-						fest_fonio.0005
+				if = {
+					limit = {
+						this = scope:host
+					}
+					scope:host = {
+						trigger_event = fest_fonio.0005
 					}
 				}
 			}
@@ -191,10 +217,6 @@ festival_first_fonio = {
 	}
 	
     # Graphics
-
-    map_entity = {
-        reference = 
-    }
 
 	# Travel
 	background = { # Bridge
@@ -795,4 +817,983 @@ festival_first_fonio = {
 		ambience = "event:/SFX/Events/Backgrounds/feasthall"
     }
 
+	window_characters = {
+
+		guest = {
+			camera = camera_body_right
+
+			effect = {
+				if = {
+					limit = {
+						scope:host.location = scope:activity.activity_location
+						OR = {
+							NOT = { exists = scope:activity.special_guest:honorary_guest }
+							scope:activity.special_guest:honorary_guest.location ?= scope:activity.activity_location
+						}
+						OR = {
+							NOT = { exists = scope:activity.special_guest:honorary_guest_regular }
+							scope:activity.special_guest:honorary_guest_regular.location ?= scope:activity.activity_location
+						}
+						exists = scope:player
+						scope:player = {
+							location = scope:activity.activity_location
+							NOR = {
+								this = scope:host
+								scope:activity.special_guest:honorary_guest ?= this
+								scope:activity.special_guest:honorary_guest_regular ?= this
+							}
+						}
+					}
+					scope:player ?= { add_to_list = characters }
+				}
+				else_if = {
+					limit = {
+						scope:host.location = scope:activity.activity_location
+						OR = {
+							NOT = { exists = scope:activity.special_guest:honorary_guest }
+							scope:activity.special_guest:honorary_guest.location ?= scope:activity.activity_location
+						}
+						OR = {
+							NOT = { exists = scope:activity.special_guest:honorary_guest_regular }
+							scope:activity.special_guest:honorary_guest_regular.location ?= scope:activity.activity_location
+						}
+						exists = scope:host.intent_target
+						any_attending_character = {
+							location = scope:activity.activity_location
+							NOR = {
+								this = scope:host
+								scope:activity.special_guest:honorary_guest ?= this
+								scope:activity.special_guest:honorary_guest_regular ?= this
+							}
+							this = scope:host.intent_target
+						}
+					}
+					every_attending_character = {
+						limit = {
+							location = scope:activity.activity_location
+							NOR = {
+								this = scope:host
+								scope:activity.special_guest:honorary_guest ?= this
+								scope:activity.special_guest:honorary_guest_regular ?= this
+							}
+							this = scope:host.intent_target
+						}
+						add_to_list = characters
+					}
+				}
+				else_if = {
+					limit = {
+						scope:host.location = scope:activity.activity_location
+						OR = {
+							NOT = { exists = scope:activity.special_guest:honorary_guest }
+							scope:activity.special_guest:honorary_guest.location ?= scope:activity.activity_location
+						}
+						OR = {
+							NOT = { exists = scope:activity.special_guest:honorary_guest_regular }
+							scope:activity.special_guest:honorary_guest_regular.location ?= scope:activity.activity_location
+						}
+						any_attending_character = {
+							location = scope:activity.activity_location
+							NOR = {
+								this = scope:host
+								scope:activity.special_guest:honorary_guest ?= this
+								scope:activity.special_guest:honorary_guest_regular ?= this
+							}
+							OR = {
+								has_relation_lover = scope:host
+								has_relation_friend = scope:host
+							}
+						}
+					}
+					every_attending_character = {
+						limit = {
+							location = scope:activity.activity_location
+							NOR = {
+								this = scope:host
+								scope:activity.special_guest:honorary_guest ?= this
+								scope:activity.special_guest:honorary_guest_regular ?= this
+							}
+							OR = {
+								has_relation_lover = scope:host
+								has_relation_friend = scope:host
+							}
+						}
+						add_to_list = characters
+					}
+				}
+				else_if = {
+					limit = {
+						scope:host.location = scope:activity.activity_location
+						OR = {
+							NOT = { exists = scope:activity.special_guest:honorary_guest }
+							scope:activity.special_guest:honorary_guest.location ?= scope:activity.activity_location
+						}
+						OR = {
+							NOT = { exists = scope:activity.special_guest:honorary_guest_regular }
+							scope:activity.special_guest:honorary_guest_regular.location ?= scope:activity.activity_location
+						}
+						any_attending_character = {
+							location = scope:activity.activity_location
+							NOR = {
+								this = scope:host
+								scope:activity.special_guest:honorary_guest ?= this
+								scope:activity.special_guest:honorary_guest_regular ?= this
+							}
+							is_consort_of = scope:host
+						}
+					}
+					every_attending_character = {
+						limit = {
+							location = scope:activity.activity_location
+							NOR = {
+								this = scope:host
+								scope:activity.special_guest:honorary_guest ?= this
+								scope:activity.special_guest:honorary_guest_regular ?= this
+							}
+							is_consort_of = scope:host
+						}
+						add_to_list = characters
+					}
+				}
+				else_if = {
+					limit = {
+						scope:host.location = scope:activity.activity_location
+						OR = {
+							NOT = { exists = scope:activity.special_guest:honorary_guest }
+							scope:activity.special_guest:honorary_guest.location ?= scope:activity.activity_location
+						}
+						OR = {
+							NOT = { exists = scope:activity.special_guest:honorary_guest_regular }
+							scope:activity.special_guest:honorary_guest_regular.location ?= scope:activity.activity_location
+						}
+						any_attending_character = {
+							location = scope:activity.activity_location
+							NOR = {
+								this = scope:host
+								scope:activity.special_guest:honorary_guest ?= this
+								scope:activity.special_guest:honorary_guest_regular ?= this
+							}
+							is_councillor_of = scope:host
+						}
+					}
+					every_attending_character = {
+						limit = {
+							location = scope:activity.activity_location
+							NOR = {
+								this = scope:host
+								scope:activity.special_guest:honorary_guest ?= this
+								scope:activity.special_guest:honorary_guest_regular ?= this
+							}
+							is_councillor_of = scope:host
+						}
+						add_to_list = characters
+					}
+				}
+				else_if = {
+					limit = {
+						scope:host.location = scope:activity.activity_location
+						OR = {
+							NOT = { exists = scope:activity.special_guest:honorary_guest }
+							scope:activity.special_guest:honorary_guest.location ?= scope:activity.activity_location
+						}
+						OR = {
+							NOT = { exists = scope:activity.special_guest:honorary_guest_regular }
+							scope:activity.special_guest:honorary_guest_regular.location ?= scope:activity.activity_location
+						}
+						any_attending_character = {
+							location = scope:activity.activity_location
+							NOR = {
+								this = scope:host
+								scope:activity.special_guest:honorary_guest ?= this
+								scope:activity.special_guest:honorary_guest_regular ?= this
+							}
+							highest_held_title_tier >= tier_duchy
+						}
+					}
+					every_attending_character = {
+						limit = {
+							location = scope:activity.activity_location
+							NOR = {
+								this = scope:host
+								scope:activity.special_guest:honorary_guest ?= this
+								scope:activity.special_guest:honorary_guest_regular ?= this
+							}
+							highest_held_title_tier >= tier_duchy
+						}
+						add_to_list = characters
+					}
+				}
+				else_if = {
+					limit = {
+						scope:host.location = scope:activity.activity_location
+						OR = {
+							NOT = { exists = scope:activity.special_guest:honorary_guest }
+							scope:activity.special_guest:honorary_guest.location ?= scope:activity.activity_location
+						}
+						OR = {
+							NOT = { exists = scope:activity.special_guest:honorary_guest_regular }
+							scope:activity.special_guest:honorary_guest_regular.location ?= scope:activity.activity_location
+						}
+						any_attending_character = {
+							location = scope:activity.activity_location
+							NOR = {
+								this = scope:host
+								scope:activity.special_guest:honorary_guest ?= this
+								scope:activity.special_guest:honorary_guest_regular ?= this
+							}
+							highest_held_title_tier >= tier_county
+						}
+					}
+					every_attending_character = {
+						limit = {
+							location = scope:activity.activity_location
+							NOR = {
+								this = scope:host
+								scope:activity.special_guest:honorary_guest ?= this
+								scope:activity.special_guest:honorary_guest_regular ?= this
+							}
+							highest_held_title_tier >= tier_county
+						}
+						add_to_list = characters
+					}
+				}
+				else_if = {
+					limit = {
+						scope:host.location = scope:activity.activity_location
+						OR = {
+							NOT = { exists = scope:activity.special_guest:honorary_guest }
+							scope:activity.special_guest:honorary_guest.location ?= scope:activity.activity_location
+						}
+						OR = {
+							NOT = { exists = scope:activity.special_guest:honorary_guest_regular }
+							scope:activity.special_guest:honorary_guest_regular.location ?= scope:activity.activity_location
+						}
+						any_attending_character = {
+							location = scope:activity.activity_location
+							NOR = {
+								this = scope:host
+								scope:activity.special_guest:honorary_guest ?= this
+								scope:activity.special_guest:honorary_guest_regular ?= this
+							}
+							OR = {
+								is_parent_of = scope:host
+								is_close_or_extended_family_of = scope:host
+							}
+						}
+					}
+					every_attending_character = {
+						limit = {
+							location = scope:activity.activity_location
+							NOR = {
+								this = scope:host
+								scope:activity.special_guest:honorary_guest ?= this
+								scope:activity.special_guest:honorary_guest_regular ?= this
+							}
+							OR = {
+								is_parent_of = scope:host
+								is_close_or_extended_family_of = scope:host
+							}
+						}
+						add_to_list = characters
+					}
+				}
+				else_if = {
+					limit = {
+						scope:host.location = scope:activity.activity_location
+						OR = {
+							NOT = { exists = scope:activity.special_guest:honorary_guest }
+							scope:activity.special_guest:honorary_guest.location ?= scope:activity.activity_location
+						}
+						OR = {
+							NOT = { exists = scope:activity.special_guest:honorary_guest_regular }
+							scope:activity.special_guest:honorary_guest_regular.location ?= scope:activity.activity_location
+						}
+					}
+					every_attending_character = {
+						limit = {
+							location = scope:activity.activity_location
+							NOR = {
+								this = scope:host
+								scope:activity.special_guest:honorary_guest ?= this
+								scope:activity.special_guest:honorary_guest_regular ?= this
+							}
+						}
+						add_to_list = characters
+					}
+				}
+			}
+
+			scripted_animation = {
+				triggered_animation = {
+					trigger = {
+						scope:activity = { is_murder_feast = yes }
+					}
+					animation = { worry stress boredom fear disbelief paranoia eyeroll drink drink_goblet }
+				}
+				triggered_animation = {
+					trigger = {
+						exists = scope:host.intent_target
+						scope:host = {
+							has_activity_intent = woo_attendee_intent
+						}
+						scope:character = scope:host.intent_target
+					}
+					animation = { love flirtation }
+				}
+				triggered_animation = {
+					trigger = {
+						exists = scope:host.intent_target
+						scope:host = {
+							has_activity_intent = murder_attendee_intent
+						}
+						scope:character = scope:host.intent_target
+					}
+					animation = { dismissal worry paranoia }
+				}
+				triggered_animation = {
+					trigger = {
+						scope:activity = { is_murder_feast = no }
+						scope:character = { has_trait = shy }
+					}
+					animation = { sadness worry }
+				}
+				triggered_animation = {
+					trigger = {
+						scope:activity = { is_murder_feast = no }
+					}
+					animation = { drink_goblet happiness flirtation throne_room_conversation_3 throne_room_conversation_1 }
+				}
+				#Fallback
+				animation = toast
+			}
+		}
+
+		host = {
+			camera = camera_body
+
+			effect = {
+				if = {
+					limit = {
+						OR = {
+							scope:host.location = scope:activity.activity_location
+							scope:host.location = { is_sea_province = yes }
+						}
+					}
+					scope:host = {
+						add_to_list = characters
+					}
+				}
+			}
+
+			scripted_animation = {
+				triggered_animation = {
+					trigger = {
+						scope:host.location = { is_sea_province = yes }
+					}
+					animation = { survey }
+				}
+				triggered_animation = {
+					trigger = {
+						OR = {
+							AND = {
+								exists = scope:activity.special_guest:honorary_guest.location
+								NOT = {
+									scope:activity.special_guest:honorary_guest.location ?= scope:activity.activity_location
+								}
+							}
+							AND = {
+								exists = scope:activity.special_guest:honorary_guest_regular.location
+								NOT = {
+									scope:activity.special_guest:honorary_guest_regular.location ?= scope:activity.activity_location
+								}
+							}
+						}
+					}
+					animation = { boredom }
+				}
+				triggered_animation = {
+					trigger = {
+						scope:activity = { is_murder_feast = yes }
+					}
+					animation = { schadenfreude personality_vengeful }
+				}
+				triggered_animation = {
+					trigger = {
+						exists = scope:host.intent_target
+						scope:host = {
+							is_male = yes
+							has_activity_intent = befriend_attendee_intent
+						}
+						scope:host.intent_target.location = scope:activity.activity_location
+					}
+					animation = { personality_forgiving personality_compassionate }
+				}
+				triggered_animation = {
+					trigger = {
+						exists = scope:host.intent_target
+						scope:host = {
+							is_male = yes
+							has_activity_intent = murder_attendee_intent
+						}
+						scope:host.intent_target.location = scope:activity.activity_location
+					}
+					animation = { hunting_knife_start }
+				}
+				triggered_animation = {
+					trigger = {
+						exists = scope:host.intent_target
+						scope:host = {
+							is_male = yes
+							has_activity_intent = woo_attendee_intent
+						}
+						scope:host.intent_target.location = scope:activity.activity_location
+					}
+					animation = { wedding_groom_right }
+				}
+				triggered_animation = {
+					trigger = {
+						exists = scope:host.intent_target
+						scope:host = {
+							is_female = yes
+							has_activity_intent = woo_attendee_intent
+						}
+						scope:host.intent_target.location = scope:activity.activity_location
+					}
+					animation = { reception_bride_right }
+				}
+				triggered_animation = {
+					trigger = {
+						scope:activity = { is_murder_feast = no }
+					}
+					animation = { toast_goblet }
+				}
+			}
+		}
+
+		travel_host = {
+			camera = camera_event_horse_left
+
+			effect = {
+				if = {
+					limit = {
+						NOR = {
+							scope:host.location = scope:activity.activity_location
+							scope:host.location = { is_sea_province = yes }
+						}
+					}
+					scope:host = {
+						add_to_list = characters
+					}
+				}
+			}
+
+			scripted_animation = {
+				triggered_animation = {
+					trigger = { scope:character = { has_trait = impatient } }
+					animation = { jockey_gallop }
+				}
+				animation = jockey_walk
+			}
+		}
+
+		honorary_guest_traveling_murder = {
+			camera = camera_event_horse_left
+
+			effect = {
+				if = {
+					limit = {
+						scope:activity.special_guest:honorary_guest.involved_activity ?= scope:activity
+						NOR = {
+							scope:activity.special_guest:honorary_guest.location ?= scope:activity.activity_location
+							scope:activity.special_guest:honorary_guest.location ?= { is_sea_province = yes }
+						}
+					}
+					special_guest:honorary_guest ?= {
+						add_to_list = characters
+					}
+				}
+			}
+
+			scripted_animation = {
+				triggered_animation = {
+					trigger = { scope:character = { has_trait = impatient } }
+					animation = { jockey_gallop }
+				}
+				animation = jockey_walk
+			}
+		}
+
+		honorary_guest_murder = { # Both regular and murder
+			camera = camera_body
+
+			effect = {
+				if = {
+					limit = {
+						scope:host.location = scope:activity.activity_location
+						OR = {
+							scope:activity.special_guest:honorary_guest.location ?= scope:activity.activity_location
+							scope:activity.special_guest:honorary_guest.location ?= { is_sea_province = yes }
+						}
+					}
+					special_guest:honorary_guest ?= {
+						add_to_list = characters
+					}
+				}
+			}
+
+			scripted_animation = {
+				triggered_animation = {
+					trigger = {
+						scope:activity.special_guest:honorary_guest_regular = { is_travelling = yes }
+					}
+					animation = { idle }
+				}
+				triggered_animation = {
+					trigger = {
+						always = yes
+					}
+					animation = { ecstasy wedding_priest chaplain personality_honorable personality_bold }
+				}
+			}
+		}
+
+		honorary_guest_regular_traveling = {
+			camera = camera_event_horse_left
+
+			effect = {
+				if = {
+					limit = {
+						scope:activity.special_guest:honorary_guest_regular.involved_activity ?= scope:activity
+						NOR = {
+							scope:activity.special_guest:honorary_guest_regular.location ?= scope:activity.activity_location
+							scope:activity.special_guest:honorary_guest_regular.location = { is_sea_province = yes }
+						}
+					}
+					special_guest:honorary_guest_regular ?= {
+						add_to_list = characters
+					}
+				}
+			}
+
+			scripted_animation = {
+				triggered_animation = {
+					trigger = { scope:character = { has_trait = impatient } }
+					animation = { jockey_gallop }
+				}
+				animation = jockey_walk
+			}
+		}
+
+		honorary_guest_regular = {
+			camera = camera_body
+
+			effect = {
+				if = {
+					limit = {
+						scope:host.location = scope:activity.activity_location
+						OR = {
+							scope:activity.special_guest:honorary_guest_regular.location ?= scope:activity.activity_location
+							scope:activity.special_guest:honorary_guest_regular.location ?= { is_sea_province = yes }
+						}
+					}
+					special_guest:honorary_guest_regular ?= {
+						add_to_list = characters
+					}
+				}
+			}
+
+			scripted_animation = {
+				triggered_animation = {
+					trigger = {
+						scope:activity.special_guest:honorary_guest_regular = { is_travelling = yes }
+					}
+					animation = { idle }
+				}
+				triggered_animation = {
+					trigger = {
+						always = yes
+					}
+					animation = { ecstasy wedding_priest chaplain personality_honorable personality_bold dancing }
+				}
+			}
+		}
+
+		guest = {
+			camera = camera_body
+
+			effect = {
+				if = {
+					limit = {
+						scope:host.location = scope:activity.activity_location
+						OR = {
+							NOT = { exists = scope:activity.special_guest:honorary_guest }
+							scope:activity.special_guest:honorary_guest.location ?= scope:activity.activity_location
+						}
+						OR = {
+							NOT = { exists = scope:activity.special_guest:honorary_guest_regular }
+							scope:activity.special_guest:honorary_guest_regular.location ?= scope:activity.activity_location
+						}
+						any_attending_character = {
+							count >= 2
+							location = scope:activity.activity_location
+							NOR = {
+								this = scope:host
+								scope:activity.special_guest:honorary_guest ?= this
+								scope:activity.special_guest:honorary_guest_regular ?= this
+							}
+							is_councillor_of = scope:host
+						}
+					}
+					every_attending_character = {
+						limit = {
+							location = scope:activity.activity_location
+							NOR = {
+								this = scope:host
+								scope:activity.special_guest:honorary_guest ?= this
+								scope:activity.special_guest:honorary_guest_regular ?= this
+							}
+							is_councillor_of = scope:host
+						}
+						add_to_list = characters
+					}
+				}
+				else_if = {
+					limit = {
+						scope:host.location = scope:activity.activity_location
+						OR = {
+							NOT = { exists = scope:activity.special_guest:honorary_guest }
+							scope:activity.special_guest:honorary_guest.location ?= scope:activity.activity_location
+						}
+						OR = {
+							NOT = { exists = scope:activity.special_guest:honorary_guest_regular }
+							scope:activity.special_guest:honorary_guest_regular.location ?= scope:activity.activity_location
+						}
+						any_attending_character = {
+							count >= 2
+							location = scope:activity.activity_location
+							NOR = {
+								this = scope:host
+								scope:activity.special_guest:honorary_guest ?= this
+								scope:activity.special_guest:honorary_guest_regular ?= this
+							}
+							highest_held_title_tier >= tier_duchy
+						}
+					}
+					every_attending_character = {
+						limit = {
+							location = scope:activity.activity_location
+							NOR = {
+								this = scope:host
+								scope:activity.special_guest:honorary_guest ?= this
+								scope:activity.special_guest:honorary_guest_regular ?= this
+							}
+							highest_held_title_tier >= tier_duchy
+						}
+						add_to_list = characters
+					}
+				}
+				else_if = {
+					limit = {
+						scope:host.location = scope:activity.activity_location
+						OR = {
+							NOT = { exists = scope:activity.special_guest:honorary_guest }
+							scope:activity.special_guest:honorary_guest.location ?= scope:activity.activity_location
+						}
+						OR = {
+							NOT = { exists = scope:activity.special_guest:honorary_guest_regular }
+							scope:activity.special_guest:honorary_guest_regular.location ?= scope:activity.activity_location
+						}
+						any_attending_character = {
+							count >= 2
+							location = scope:activity.activity_location
+							NOR = {
+								this = scope:host
+								scope:activity.special_guest:honorary_guest ?= this
+								scope:activity.special_guest:honorary_guest_regular ?= this
+							}
+							highest_held_title_tier >= tier_county
+						}
+					}
+					every_attending_character = {
+						limit = {
+							location = scope:activity.activity_location
+							NOR = {
+								this = scope:host
+								scope:activity.special_guest:honorary_guest ?= this
+								scope:activity.special_guest:honorary_guest_regular ?= this
+							}
+							highest_held_title_tier >= tier_county
+						}
+						add_to_list = characters
+					}
+				}
+				else_if = {
+					limit = {
+						scope:host.location = scope:activity.activity_location
+						OR = {
+							NOT = { exists = scope:activity.special_guest:honorary_guest }
+							scope:activity.special_guest:honorary_guest.location ?= scope:activity.activity_location
+						}
+						OR = {
+							NOT = { exists = scope:activity.special_guest:honorary_guest_regular }
+							scope:activity.special_guest:honorary_guest_regular.location ?= scope:activity.activity_location
+						}
+						any_attending_character = {
+							count >= 2
+							location = scope:activity.activity_location
+							NOR = {
+								this = scope:host
+								scope:activity.special_guest:honorary_guest ?= this
+								scope:activity.special_guest:honorary_guest_regular ?= this
+							}
+							OR = {
+								is_parent_of = scope:host
+								is_close_or_extended_family_of = scope:host
+							}
+						}
+					}
+					every_attending_character = {
+						limit = {
+							location = scope:activity.activity_location
+							NOR = {
+								this = scope:host
+								scope:activity.special_guest:honorary_guest ?= this
+								scope:activity.special_guest:honorary_guest_regular ?= this
+							}
+							OR = {
+								is_parent_of = scope:host
+								is_close_or_extended_family_of = scope:host
+							}
+						}
+						add_to_list = characters
+					}
+				}
+				else_if = {
+					limit = {
+						scope:host.location = scope:activity.activity_location
+						OR = {
+							NOT = { exists = scope:activity.special_guest:honorary_guest }
+							scope:activity.special_guest:honorary_guest.location ?= scope:activity.activity_location
+						}
+						OR = {
+							NOT = { exists = scope:activity.special_guest:honorary_guest_regular }
+							scope:activity.special_guest:honorary_guest_regular.location ?= scope:activity.activity_location
+						}
+					}
+					every_attending_character = {
+						limit = {
+							location = scope:activity.activity_location
+							NOR = {
+								this = scope:host
+								scope:activity.special_guest:honorary_guest ?= this
+								scope:activity.special_guest:honorary_guest_regular ?= this
+							}
+						}
+						add_to_list = characters
+					}
+				}
+			}
+
+			scripted_animation = {
+				triggered_animation = {
+					trigger = {
+						scope:activity = { is_murder_feast = yes }
+					}
+					animation = { worry stress boredom fear disbelief paranoia eyeroll drink drink_goblet }
+				}
+				triggered_animation = {
+					trigger = {
+						scope:activity = { is_murder_feast = no }
+						scope:character = { has_trait = shy }
+					}
+					animation = { stress }
+				}
+				triggered_animation = {
+					trigger = {
+						scope:activity = { is_murder_feast = no }
+					}
+					animation = { dancing laugh toast flirtation_left throne_room_conversation_2 }
+				}
+				#Fallback
+				animation = toast
+			}
+		}
+
+		guest = {
+			camera = camera_body_left
+
+			effect = {
+				if = {
+					limit = {
+						scope:host.location = scope:activity.activity_location
+						OR = {
+							NOT = { exists = scope:activity.special_guest:honorary_guest }
+							scope:activity.special_guest:honorary_guest.location ?= scope:activity.activity_location
+						}
+						OR = {
+							NOT = { exists = scope:activity.special_guest:honorary_guest_regular }
+							scope:activity.special_guest:honorary_guest_regular.location ?= scope:activity.activity_location
+						}
+						any_attending_character = {
+							count >= 3
+							location = scope:activity.activity_location
+							NOR = {
+								this = scope:host
+								scope:activity.special_guest:honorary_guest ?= this
+								scope:activity.special_guest:honorary_guest_regular ?= this
+							}
+							is_councillor_of = scope:host
+						}
+					}
+					every_attending_character = {
+						limit = {
+							location = scope:activity.activity_location
+							NOR = {
+								this = scope:host
+								scope:activity.special_guest:honorary_guest ?= this
+								scope:activity.special_guest:honorary_guest_regular ?= this
+							}
+							is_councillor_of = scope:host
+						}
+						add_to_list = characters
+					}
+				}
+				else_if = {
+					limit = {
+						scope:host.location = scope:activity.activity_location
+						OR = {
+							NOT = { exists = scope:activity.special_guest:honorary_guest }
+							scope:activity.special_guest:honorary_guest.location ?= scope:activity.activity_location
+						}
+						OR = {
+							NOT = { exists = scope:activity.special_guest:honorary_guest_regular }
+							scope:activity.special_guest:honorary_guest_regular.location ?= scope:activity.activity_location
+						}
+						any_attending_character = {
+							count >= 3
+							location = scope:activity.activity_location
+							NOR = {
+								this = scope:host
+								scope:activity.special_guest:honorary_guest ?= this
+								scope:activity.special_guest:honorary_guest_regular ?= this
+							}
+							highest_held_title_tier >= tier_duchy
+						}
+					}
+					every_attending_character = {
+						limit = {
+							location = scope:activity.activity_location
+							NOR = {
+								this = scope:host
+								scope:activity.special_guest:honorary_guest ?= this
+								scope:activity.special_guest:honorary_guest_regular ?= this
+							}
+							highest_held_title_tier >= tier_duchy
+						}
+						add_to_list = characters
+					}
+				}
+				else_if = {
+					limit = {
+						scope:host.location = scope:activity.activity_location
+						OR = {
+							NOT = { exists = scope:activity.special_guest:honorary_guest }
+							scope:activity.special_guest:honorary_guest.location ?= scope:activity.activity_location
+						}
+						OR = {
+							NOT = { exists = scope:activity.special_guest:honorary_guest_regular }
+							scope:activity.special_guest:honorary_guest_regular.location ?= scope:activity.activity_location
+						}
+						any_attending_character = {
+							count >= 3
+							location = scope:activity.activity_location
+							NOR = {
+								this = scope:host
+								scope:activity.special_guest:honorary_guest ?= this
+								scope:activity.special_guest:honorary_guest_regular ?= this
+							}
+							highest_held_title_tier >= tier_county
+						}
+					}
+					every_attending_character = {
+						limit = {
+							location = scope:activity.activity_location
+							NOR = {
+								this = scope:host
+								scope:activity.special_guest:honorary_guest ?= this
+								scope:activity.special_guest:honorary_guest_regular ?= this
+							}
+							highest_held_title_tier >= tier_county
+						}
+						add_to_list = characters
+					}
+				}
+				else_if = {
+					limit = {
+						scope:host.location = scope:activity.activity_location
+						OR = {
+							NOT = { exists = scope:activity.special_guest:honorary_guest }
+							scope:activity.special_guest:honorary_guest.location ?= scope:activity.activity_location
+						}
+						OR = {
+							NOT = { exists = scope:activity.special_guest:honorary_guest_regular }
+							scope:activity.special_guest:honorary_guest_regular.location ?= scope:activity.activity_location
+						}
+						any_attending_character = {
+							count >= 3
+							location = scope:activity.activity_location
+							NOR = {
+								this = scope:host
+								scope:activity.special_guest:honorary_guest ?= this
+								scope:activity.special_guest:honorary_guest_regular ?= this
+							}
+							OR = {
+								is_parent_of = scope:host
+								is_close_or_extended_family_of = scope:host
+							}
+						}
+					}
+					every_attending_character = {
+						limit = {
+							location = scope:activity.activity_location
+							NOR = {
+								this = scope:host
+								scope:activity.special_guest:honorary_guest ?= this
+								scope:activity.special_guest:honorary_guest_regular ?= this
+							}
+							OR = {
+								is_parent_of = scope:host
+								is_close_or_extended_family_of = scope:host
+							}
+						}
+						add_to_list = characters
+					}
+				}
+				else_if = {
+					limit = {
+						scope:host.location = scope:activity.activity_location
+						OR = {
+							NOT = { exists = scope:activity.special_guest:honorary_guest }
+							scope:activity.special_guest:honorary_guest.location ?= scope:activity.activity_location
+						}
+						OR = {
+							NOT = { exists = scope:activity.special_guest:honorary_guest_regular }
+							scope:activity.special_guest:honorary_guest_regular.location ?= scope:activity.activity_location
+						}
+					}
+					every_attending_character = {
+						limit = {
+							location = scope:activity.activity_location
+							NOR = {
+								this = scope:host
+								scope:activity.special_guest:honorary_guest ?= this
+								scope:activity.special_guest:honorary_guest_regular ?= this
+							}
+						}
+						add_to_list = characters
+					}
+				}
+			}
+		}
+	}
 }

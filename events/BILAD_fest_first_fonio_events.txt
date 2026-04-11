@@ -42,7 +42,7 @@ fest_fonio.0002 = {
         root = {
             add_piety = minor_piety_gain
             add_prestige = minor_prestige_gain
-            add_short_term_gold = -20
+            remove_short_term_gold = 20
         }
     }
 
@@ -191,7 +191,6 @@ fest_fonio.0005 = {
     }
 
     immediate = {
-        add_gold = 40
         add_piety = 100
         add_prestige = 200
     }
