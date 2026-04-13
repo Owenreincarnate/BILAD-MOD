@@ -1,0 +1,32 @@
+pillage_intent_cattle_raid = {
+
+	on_return_raid_loot = {
+		scope:raider = {
+			if = {
+				limit = {
+					NOT = {
+						has_trait = BILAD_cattle_keeper
+					}
+				}
+				add_trait = BILAD_cattle_keeper
+			}
+			add_gold = {
+				value = scope:raid_loot
+				multiply = 0.5
+			}
+			add_trait_xp = {
+				trait = BILAD_cattle_keeper
+				value = scope:raid_loot
+				multiply = 0.1
+			}
+		}
+	}
+
+	ai_will_do = {
+		value = 100
+	}
+
+	is_shown = {
+		has_cultural_tradition = tradition_fulbe_pastorialism
+	}
+}

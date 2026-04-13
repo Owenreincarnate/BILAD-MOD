@@ -1,0 +1,7 @@
+﻿l_english:
+
+ pillage_intent_cattle_raid: "Cattle Raid"
+ pillage_intent_cattle_raid_message: "Cattle Raiders"
+ pillage_intent_cattle_raid_desc: "$pillage_intent_cattle_raid_loot$\n$pillage_intent_cattle_raid_flavor$"
+ pillage_intent_cattle_raid_loot: "#bol Types of Loot:#!\n\t\t$BULLET$[gold_i][gold|E]: #V 100%#!\n\t\t$BULLET$Cattle keeper trait experience: #V 10%#!"
+ pillage_intent_cattle_raid_flavor: "#weak The herds of our neighbors grow fat and plentiful, all we must do is reach out and take them.#!"
