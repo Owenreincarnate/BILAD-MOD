@@ -1,0 +1,18 @@
+﻿# The central Saharan rainy season is represented as June through September.
+# Keeping it in one trigger makes the balance window easy to adjust later.
+bilad_rezzou_season_trigger = {
+	current_month >= 6
+	current_month <= 9
+}
+
+bilad_can_use_rezzou_intent_trigger = {
+	culture = {
+		has_cultural_parameter = unlocks_bilad_rezzou_raid_intent
+	}
+}
+
+# RICE's exact Kel Tagelmust key is not present in this workspace.
+# Replace this body with the final tradition check when someone imports it.
+bilad_has_kel_tagelmust_trigger = {
+	always = no
+}

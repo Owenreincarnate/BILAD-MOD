@@ -1,0 +1,137 @@
+﻿bilad_counter_rezzou_cb = {
+	group = conquest
+	icon = retaliation_cb
+	interface_priority = 90
+	allow_hostages = no
+	target_titles = none
+	white_peace_possible = yes
+
+	ticking_war_score_targets_entire_realm = yes
+	attacker_ticking_warscore = 0
+	attacker_score_from_battles_scale = 200
+	defender_score_from_battles_scale = 200
+	max_attacker_score_from_battles = 100
+	max_defender_score_from_battles = 100
+
+	allowed_for_character = {
+		is_alive = yes
+		is_landed = yes
+		has_variable = bilad_counter_rezzou_target
+		has_variable = bilad_counter_rezzou_gold
+	}
+
+	allowed_against_character = {
+		is_alive = yes
+		is_landed = yes
+		scope:attacker = {
+			var:bilad_counter_rezzou_target = scope:defender
+		}
+	}
+
+	valid_to_start = {
+		NOT = {
+			scope:attacker = {
+				is_at_war_with = scope:defender
+			}
+		}
+	}
+
+	should_invalidate = {
+		OR = {
+			scope:attacker = {
+				OR = {
+					is_alive = no
+					is_landed = no
+					NOT = { has_variable = bilad_counter_rezzou_target }
+					NOT = { var:bilad_counter_rezzou_target = scope:defender }
+				}
+			}
+			scope:defender = {
+				OR = {
+					is_alive = no
+					is_landed = no
+				}
+			}
+		}
+	}
+
+	cost = {
+		prestige = {
+			value = miniscule_prestige_value
+			multiply = common_cb_prestige_cost_multiplier
+		}
+	}
+
+	on_declaration = {
+		scope:defender = { save_scope_as = recipient }
+		on_declared_war = yes
+	}
+
+	on_victory_desc = {
+		desc = bilad_counter_rezzou_cb_victory_desc
+	}
+
+	on_victory = {
+		scope:defender = {
+			pay_short_term_gold = {
+				target = scope:attacker
+				gold = {
+					value = scope:attacker.var:bilad_counter_rezzou_gold
+					min = 25
+					max = 150
+				}
+			}
+			add_prestige = medium_prestige_loss
+		}
+		scope:attacker = {
+			add_prestige = medium_prestige_gain
+			remove_variable = bilad_counter_rezzou_target
+			remove_variable = bilad_counter_rezzou_gold
+		}
+		add_truce_attacker_victory_effect = yes
+	}
+
+	on_white_peace_desc = {
+		desc = bilad_counter_rezzou_cb_white_peace_desc
+	}
+
+	on_white_peace = {
+		scope:attacker = {
+			add_prestige = miniscule_prestige_loss
+			remove_variable = bilad_counter_rezzou_target
+			remove_variable = bilad_counter_rezzou_gold
+		}
+		add_truce_white_peace_effect = yes
+	}
+
+	on_defeat_desc = {
+		desc = bilad_counter_rezzou_cb_defeat_desc
+	}
+
+	on_defeat = {
+		scope:attacker = {
+			add_prestige = medium_prestige_loss
+			remove_variable = bilad_counter_rezzou_target
+			remove_variable = bilad_counter_rezzou_gold
+		}
+		add_truce_attacker_defeat_effect = yes
+	}
+
+	on_invalidated = {
+		scope:attacker ?= {
+			remove_variable = bilad_counter_rezzou_target
+			remove_variable = bilad_counter_rezzou_gold
+		}
+	}
+
+	on_primary_attacker_death = invalidate
+	on_primary_defender_death = invalidate
+
+	war_name = "BILAD_COUNTER_REZZOU_WAR_NAME"
+	war_name_base = "BILAD_COUNTER_REZZOU_WAR_NAME_BASE"
+	cb_name = "BILAD_COUNTER_REZZOU_CB_NAME"
+
+	ai_score = {
+		value = 50
+	}
+}

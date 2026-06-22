@@ -1,0 +1,35 @@
+﻿bilad_rezzou_raid_intent = {
+	on_return_raid_loot = {
+		scope:raider = {
+			send_interface_message = {
+				type = event_raid_good
+				title = bilad_rezzou_raid_loot_message
+				right_icon = root.army_commander
+
+				add_gold = scope:raid_loot
+				add_prestige = {
+					value = scope:raid_loot
+					multiply = 0.75
+				}
+			}
+		}
+	}
+
+	modifier = {
+		raid_speed = 0.15
+		movement_speed_land_raiding = 0.1
+		hostile_county_attrition_raiding = -0.1
+	}
+
+	ai_will_do = {
+		value = 100
+	}
+
+	is_shown = {
+		bilad_can_use_rezzou_intent_trigger = yes
+	}
+
+	is_valid = {
+		bilad_rezzou_season_trigger = yes
+	}
+}

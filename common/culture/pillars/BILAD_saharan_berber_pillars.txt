@@ -1,0 +1,26 @@
+﻿heritage_imazighen = {
+	type = heritage
+	is_shown = {
+		heritage_is_shown_trigger = {
+			HERITAGE = heritage_imazighen
+		}
+	}
+	audio_parameter = mena
+}
+
+language_tamasheq = {
+	type = language
+	is_shown = {
+		language_is_shown_trigger = {
+			LANGUAGE = language_tamasheq
+		}
+	}
+	ai_will_do = {
+		value = 10
+		if = {
+			limit = { has_cultural_pillar = language_tamasheq }
+			multiply = 10
+		}
+	}
+	color = { 168 116 50 }
+}

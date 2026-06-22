@@ -1,0 +1,31 @@
+﻿touareg = {
+	color = { 139 91 45 }
+
+	ethos = ethos_stoic
+	heritage = heritage_imazighen
+	language = language_tamasheq
+	martial_custom = martial_custom_male_only
+	head_determination = head_determination_herd
+	traditions = {
+		tradition_rezzou_raids
+		tradition_tribal_confederations
+		tradition_saharan_nomads
+		# Someone will add the RICE Kel Tagelmust tradition after its exact key is imported.
+	}
+
+	# Temporary vanilla fallback until the dedicated Touareg name list is supplied.
+	name_list = name_list_butr
+
+	coa_gfx = { berber_group_coa_gfx }
+	building_gfx = { berber_group_building_gfx mena_building_gfx }
+	clothing_gfx = { afr_berber_clothing_gfx mena_clothing_gfx }
+	unit_gfx = { mena_unit_gfx }
+	house_coa_frame = house_frame_06
+	house_coa_mask_offset = { 0.0 0.0 }
+	house_coa_mask_scale = { 0.85 0.85 }
+
+	ethnicities = {
+		71 = arab
+		29 = african
+	}
+}

@@ -1,0 +1,169 @@
+﻿namespace = bilad_ahal
+
+bilad_ahal.0001 = {
+	type = activity_event
+	title = bilad_ahal.0001.t
+	desc = bilad_ahal.0001.desc
+	theme = feast_activity
+	override_background = { reference = wilderness_desert }
+
+	left_portrait = {
+		character = root
+		animation = thinking
+	}
+
+	option = {
+		name = bilad_ahal.0001.a
+		add_prestige = minor_prestige_gain
+	}
+}
+
+bilad_ahal.0010 = {
+	type = activity_event
+	title = bilad_ahal.0010.t
+	desc = bilad_ahal.0010.desc
+	theme = feast_activity
+	override_background = { reference = wilderness_desert }
+
+	left_portrait = {
+		character = root
+		animation = thinking
+	}
+
+	option = {
+		name = bilad_ahal.0010.a
+		remove_short_term_gold = 40
+		add_prestige = medium_prestige_gain
+	}
+
+	option = {
+		name = bilad_ahal.0010.b
+		add_gold = 35
+		add_prestige = minor_prestige_gain
+		stress_impact = {
+			generous = medium_stress_impact_gain
+			greedy = minor_stress_impact_loss
+		}
+	}
+
+	option = {
+		name = bilad_ahal.0010.c
+		remove_short_term_gold = 20
+		scope:activity.activity_location.county = {
+			change_development_progress_with_overflow = 15
+		}
+	}
+}
+
+bilad_ahal.0020 = {
+	type = activity_event
+	title = bilad_ahal.0020.t
+	desc = bilad_ahal.0020.desc
+	theme = feast_activity
+	override_background = { reference = wilderness_desert }
+
+	left_portrait = {
+		character = root
+		animation = toast_goblet
+	}
+
+	option = {
+		name = bilad_ahal.0020.a
+		add_prestige = medium_prestige_gain
+		add_learning_lifestyle_xp = minor_lifestyle_xp
+	}
+
+	option = {
+		name = bilad_ahal.0020.b
+		stress_impact = {
+			shy = medium_stress_impact_gain
+			gregarious = medium_stress_impact_loss
+		}
+		add_prestige = minor_prestige_gain
+	}
+
+	option = {
+		name = bilad_ahal.0020.c
+		add_diplomacy_lifestyle_xp = minor_lifestyle_xp
+		add_prestige = minor_prestige_gain
+	}
+}
+
+bilad_ahal.0030 = {
+	type = activity_event
+	title = bilad_ahal.0030.t
+	desc = bilad_ahal.0030.desc
+	theme = feast_activity
+	override_background = { reference = wilderness_desert }
+
+	left_portrait = {
+		character = root
+		animation = personality_bold
+	}
+
+	option = {
+		name = bilad_ahal.0030.a
+		random_list = {
+			70 = {
+				add_prestige = medium_prestige_gain
+				add_martial_lifestyle_xp = medium_lifestyle_xp
+			}
+			25 = {
+				add_prestige = minor_prestige_gain
+				add_trait = wounded_1
+			}
+			5 = {
+				add_trait = wounded_2
+			}
+		}
+	}
+
+	option = {
+		name = bilad_ahal.0030.b
+		remove_short_term_gold = 50
+		create_character = {
+			location = scope:activity.activity_location
+			random_traits = yes
+			culture = root.culture
+			faith = root.faith
+			age = { 18 35 }
+			martial = { 8 14 }
+			prowess = { 12 18 }
+			gender_female_chance = { add = 20 }
+			save_scope_as = ahal_warrior
+		}
+		add_courtier = scope:ahal_warrior
+	}
+
+	option = {
+		name = bilad_ahal.0030.c
+		add_prestige = minor_prestige_gain
+	}
+}
+
+bilad_ahal.0040 = {
+	type = activity_event
+	title = bilad_ahal.0040.t
+	desc = bilad_ahal.0040.desc
+	theme = feast_activity
+	override_background = { reference = wilderness_desert }
+
+	left_portrait = {
+		character = root
+		animation = happiness
+	}
+
+	immediate = {
+		add_prestige = major_prestige_gain
+		scope:activity.activity_location.county = {
+			if = {
+				limit = { county_control < 100 }
+				change_county_control = 10
+			}
+		}
+	}
+
+	option = {
+		name = bilad_ahal.0040.a
+	}
+}

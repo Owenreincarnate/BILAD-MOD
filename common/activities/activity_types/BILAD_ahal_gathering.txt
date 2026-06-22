@@ -1,0 +1,215 @@
+﻿ahal_gathering = {
+	activity_group_type = activities
+	sort_order = 25
+	# This hook remains false until someone imports the exact RICE Kel Tagelmust key.
+	is_shown = {
+		bilad_has_kel_tagelmust_trigger = yes
+		highest_held_title_tier > tier_barony
+	}
+
+	can_start_showing_failures_only = {
+		NOT = { is_activity_type_on_cooldown = ahal_gathering }
+		is_available_adult = yes
+		is_imprisoned = no
+	}
+
+	is_valid = {
+		scope:host = {
+			is_alive = yes
+			is_capable_adult = yes
+			is_imprisoned = no
+			is_landed = yes
+		}
+	}
+
+	on_host_death = {
+		invalidation_host_death_effect = yes
+	}
+
+	on_invalidated = {
+		invalidation_imprisoned_effect = yes
+		invalidation_incapable_effect = yes
+		invalidation_unlanded_effect = yes
+	}
+
+	is_single_location = yes
+	province_filter = domicile_domain
+	ai_province_filter = domicile_domain
+	max_province_icons = 8
+
+	is_location_valid = {
+		OR = {
+			has_holding = yes
+			scope:host.domicile.domicile_location ?= this
+		}
+		OR = {
+			terrain = desert
+			terrain = drylands
+			terrain = oasis
+			terrain = desert_mountains
+		}
+	}
+
+	province_score = {
+		value = 10
+		if = {
+			limit = { terrain = oasis }
+			add = 20
+		}
+		if = {
+			limit = { this = scope:host.capital_province }
+			add = 10
+		}
+	}
+
+	wait_time_before_start = { weeks = 2 }
+	max_guest_arrival_delay_time = { weeks = 4 }
+	cooldown = { years = 5 }
+
+	open_invite = yes
+	allow_zero_guest_invites = yes
+	max_guests = 30
+	reserved_guest_slots = 3
+
+	can_be_activity_guest = {
+		is_adult = yes
+		is_healthy = yes
+	}
+
+	guest_join_chance = {
+		base = 35
+		modifier = {
+			add = 25
+			culture = scope:host.culture
+		}
+		modifier = {
+			add = 20
+			has_relation_friend = scope:host
+		}
+	}
+
+	host_intents = {
+		intents = { reduce_stress_intent }
+		default = reduce_stress_intent
+	}
+
+	guest_intents = {
+		intents = { reduce_stress_intent }
+		default = reduce_stress_intent
+	}
+
+	travel_entourage_selection = {
+		weight = 1
+		max = 12
+		ai_max = 8
+		invite_rule_order = 1
+	}
+
+	cost = {
+		gold = {
+			value = 60
+		}
+	}
+
+	ui_predicted_cost = {
+		gold = {
+			value = 60
+		}
+	}
+
+	phases = {
+		ahal_arrival_and_trade = {
+			is_predefined = yes
+			order = 1
+
+			on_phase_active = {
+				if = {
+					limit = { this = scope:host }
+					scope:activity = {
+						progress_activity_phase_after = { weeks = 2 }
+					}
+					scope:host = {
+						trigger_event = bilad_ahal.0001
+					}
+				}
+			}
+
+			on_end = {
+				if = {
+					limit = { this = scope:host }
+					scope:host = {
+						trigger_event = bilad_ahal.0010
+					}
+				}
+			}
+		}
+
+		ahal_night_fires = {
+			is_predefined = yes
+			order = 2
+			location_source = first_picked_phase
+
+			on_phase_active = {
+				if = {
+					limit = { this = scope:host }
+					scope:activity = {
+						progress_activity_phase_after = { weeks = 2 }
+					}
+					scope:host = {
+						trigger_event = bilad_ahal.0020
+					}
+				}
+			}
+		}
+
+		ahal_duels_and_recruitment = {
+			is_predefined = yes
+			order = 3
+			location_source = first_picked_phase
+
+			on_phase_active = {
+				if = {
+					limit = { this = scope:host }
+					scope:activity = {
+						progress_activity_phase_after = { weeks = 2 }
+					}
+					scope:host = {
+						trigger_event = bilad_ahal.0030
+					}
+				}
+			}
+
+			on_end = {
+				if = {
+					limit = { this = scope:host }
+					scope:host = {
+						trigger_event = bilad_ahal.0040
+					}
+				}
+			}
+		}
+	}
+
+	ai_will_do = {
+		value = 25
+	}
+
+	ai_check_interval_by_tier = {
+		barony = 0
+		county = 36
+		duchy = 30
+		kingdom = 24
+		empire = 24
+		hegemony = 24
+	}
+
+	ai_will_select_province = {
+		value = scope:score
+	}
+
+	background = {
+		texture = "gfx/interface/illustrations/event_scenes/desert_nomad.dds"
+		environment = "environment_travel_desert"
+		ambience = "event:/SFX/Events/Backgrounds/desert_day"
+	}
+}

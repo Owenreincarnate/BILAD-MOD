@@ -1,0 +1,66 @@
+﻿namespace = bilad_rezzou
+
+# Records the raider and the accumulated booty on the ravaged top liege.
+# These variables grant a five-year window for the Counter-Rezzou CB.
+bilad_rezzou.0001 = {
+	hidden = yes
+	scope = army
+
+	immediate = {
+		scope:county.holder.top_liege ?= {
+			save_scope_as = rezzou_victim
+		}
+
+		if = {
+			limit = {
+				exists = scope:rezzou_victim
+				scope:rezzou_victim != scope:raider
+				scope:rezzou_victim = {
+					is_alive = yes
+					is_landed = yes
+				}
+			}
+
+			scope:rezzou_victim = {
+				set_variable = {
+					name = bilad_counter_rezzou_target
+					value = scope:raider
+					years = 5
+				}
+				set_variable = {
+					name = bilad_counter_rezzou_gold
+					value = root.raid_loot
+					years = 5
+				}
+			}
+
+			random = {
+				chance = 12
+				scope:rezzou_victim = {
+					random_courtier_or_guest = {
+						limit = {
+							is_alive = yes
+							is_ruler = no
+							is_imprisoned = no
+						}
+						save_scope_as = rezzou_captive
+					}
+				}
+			}
+
+			if = {
+				limit = { exists = scope:rezzou_captive }
+				scope:raider = {
+					imprison = {
+						target = scope:rezzou_captive
+						type = dungeon
+					}
+				}
+			}
+
+			scope:raider = {
+				add_prestige = miniscule_prestige_gain
+			}
+		}
+	}
+}

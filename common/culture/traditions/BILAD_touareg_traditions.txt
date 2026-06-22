@@ -1,0 +1,110 @@
+﻿tradition_rezzou_raids = {
+	category = combat
+
+	layers = {
+		0 = martial
+		1 = mena
+		4 = rider.dds
+	}
+
+	is_shown = {
+		has_cultural_pillar = heritage_imazighen
+	}
+	can_pick = {
+		has_cultural_pillar = heritage_imazighen
+	}
+
+	parameters = {
+		unlocks_bilad_rezzou_raid_intent = yes
+		prowess_traits_more_valued = yes
+	}
+
+	character_modifier = {
+		prowess = 1
+		knight_effectiveness_mult = 0.1
+		light_cavalry_damage_mult = 0.1
+		camel_cavalry_damage_mult = 0.1
+		raid_speed = 0.1
+	}
+
+	cost = {
+		prestige = {
+			add = {
+				value = tradition_base_cost
+				desc = BASE
+				format = "BASE_VALUE_FORMAT"
+			}
+			if = {
+				limit = {
+					NOT = {
+						culture_pillar:ethos_bellicose = { is_in_list = traits }
+					}
+				}
+				add = {
+					value = tradition_incompatible_ethos_penalty
+					desc = not_bellicose_desc
+				}
+			}
+			multiply = tradition_replacement_cost_if_relevant
+		}
+	}
+
+	ai_will_do = {
+		value = 150
+	}
+}
+
+tradition_tribal_confederations = {
+	category = realm
+
+	layers = {
+		0 = diplo
+		1 = mena
+		4 = crown.dds
+	}
+
+	is_shown = {
+		has_cultural_pillar = heritage_imazighen
+	}
+	can_pick = {
+		has_cultural_pillar = heritage_imazighen
+	}
+
+	parameters = {
+		unlocks_bilad_touareg_confederation = yes
+	}
+
+	character_modifier = {
+		diplomacy = 1
+		independent_ruler_opinion = 5
+		same_culture_opinion = 5
+	}
+
+	cost = {
+		prestige = {
+			add = {
+				value = tradition_base_cost
+				desc = BASE
+				format = "BASE_VALUE_FORMAT"
+			}
+			if = {
+				limit = {
+					NOR = {
+						culture_pillar:ethos_communal = { is_in_list = traits }
+						culture_pillar:ethos_egalitarian = { is_in_list = traits }
+						culture_pillar:ethos_stoic = { is_in_list = traits }
+					}
+				}
+				add = {
+					value = tradition_incompatible_ethos_penalty
+					desc = not_communal_egalitarian_or_stoic_desc
+				}
+			}
+			multiply = tradition_replacement_cost_if_relevant
+		}
+	}
+
+	ai_will_do = {
+		value = 150
+	}
+}

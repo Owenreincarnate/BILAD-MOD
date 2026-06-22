@@ -1,0 +1,174 @@
+﻿bilad_offer_touareg_confederation_interaction = {
+	interface_priority = 70
+	common_interaction = yes
+	category = interaction_category_diplomacy
+	icon = offer_confederation_interaction
+
+	desc = bilad_offer_touareg_confederation_interaction_desc
+	greeting = positive
+	notification_text = BILAD_OFFER_TOUAREG_CONFEDERATION_NOTIFICATION
+	popup_on_receive = yes
+	pause_on_receive = yes
+	cooldown_against_recipient = { years = 3 }
+
+	ai_targets = {
+		ai_recipients = neighboring_rulers
+		max = 10
+	}
+	ai_target_quick_trigger = {
+		adult = yes
+	}
+	ai_frequency_by_tier = {
+		barony = 0
+		county = 60
+		duchy = 48
+		kingdom = 0
+		empire = 0
+		hegemony = 0
+	}
+
+	is_shown = {
+		scope:actor != scope:recipient
+		scope:actor = {
+			is_playable_character = yes
+			is_alive = yes
+			is_adult = yes
+			is_landed = yes
+			is_independent_ruler = yes
+			highest_held_title_tier <= tier_duchy
+			OR = {
+				government_has_flag = government_is_nomadic
+				government_has_flag = government_is_tribal
+			}
+			culture = {
+				has_cultural_parameter = unlocks_bilad_touareg_confederation
+			}
+			trigger_if = {
+				limit = { is_confederation_member = yes }
+				confederation = { is_house_based = no }
+			}
+		}
+		scope:recipient = {
+			is_playable_character = yes
+			is_alive = yes
+			is_adult = yes
+			is_landed = yes
+			is_independent_ruler = yes
+			highest_held_title_tier <= tier_duchy
+			OR = {
+				government_has_flag = government_is_nomadic
+				government_has_flag = government_is_tribal
+			}
+			culture = {
+				has_cultural_parameter = unlocks_bilad_touareg_confederation
+			}
+			trigger_if = {
+				limit = { is_confederation_member = yes }
+				confederation = { is_house_based = no }
+			}
+		}
+		OR = {
+			scope:actor = { is_confederation_member = no }
+			scope:recipient = { is_confederation_member = no }
+		}
+	}
+
+	is_valid_showing_failures_only = {
+		scope:actor = {
+			is_imprisoned = no
+			is_at_war = no
+		}
+		scope:recipient = {
+			is_imprisoned = no
+			is_at_war = no
+		}
+		NOT = {
+			scope:actor = {
+				is_at_war_with = scope:recipient
+			}
+		}
+	}
+
+	ai_accept = {
+		base = -25
+
+		modifier = {
+			add = 50
+			scope:actor.culture = scope:recipient.culture
+			desc = SAME_CULTURE_REASON
+		}
+		modifier = {
+			add = 25
+			scope:actor.culture = {
+				has_same_culture_heritage = scope:recipient.culture
+			}
+			desc = cultural_acceptance_interaction_reason
+		}
+		modifier = {
+			add = 25
+			scope:actor = {
+				is_allied_to = scope:recipient
+			}
+			desc = offer_vassalization_interaction_aibehavior_allied_tt
+		}
+		modifier = {
+			add = -100
+			scope:recipient = {
+				has_relation_rival = scope:actor
+			}
+			desc = offer_vassalization_interaction_aibehavior_rival_tt
+		}
+		opinion_modifier = {
+			who = scope:recipient
+			opinion_target = scope:actor
+			multiplier = 0.5
+		}
+	}
+
+	on_accept = {
+		if = {
+			limit = {
+				scope:actor = { is_confederation_member = no }
+				scope:recipient = { is_confederation_member = no }
+			}
+			scope:actor = {
+				create_confederation = {
+					name = BILAD_TOUAREG_CONFEDERATION_NAME
+				}
+			}
+			scope:new_confederation = {
+				add_confederation_member = scope:recipient
+			}
+		}
+		else_if = {
+			limit = {
+				scope:actor = { is_confederation_member = yes }
+				scope:recipient = { is_confederation_member = no }
+			}
+			scope:actor.confederation = {
+				add_confederation_member = scope:recipient
+			}
+		}
+		else_if = {
+			limit = {
+				scope:actor = { is_confederation_member = no }
+				scope:recipient = { is_confederation_member = yes }
+			}
+			scope:recipient.confederation = {
+				add_confederation_member = scope:actor
+			}
+		}
+	}
+
+	is_available = {
+		is_landed = yes
+		is_independent_ruler = yes
+		culture = {
+			has_cultural_parameter = unlocks_bilad_touareg_confederation
+		}
+	}
+
+	ai_will_do = {
+		base = 10
+	}
+}

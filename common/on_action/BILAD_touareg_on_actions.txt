@@ -1,0 +1,18 @@
+﻿# Vanilla exposes root as the raid army and supplies raider, barony and county scopes.
+on_raid_action_completion = {
+	on_actions = {
+		bilad_rezzou_raid_completion_on_action
+	}
+}
+
+bilad_rezzou_raid_completion_on_action = {
+	trigger = {
+		raid_intent = bilad_rezzou_raid_intent
+		scope:raider = {
+			bilad_can_use_rezzou_intent_trigger = yes
+		}
+	}
+	events = {
+		bilad_rezzou.0001
+	}
+}
