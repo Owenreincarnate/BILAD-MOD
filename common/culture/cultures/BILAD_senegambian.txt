@@ -1,4 +1,4 @@
-pulaar = {
+﻿pulaar = {
 	color = { 0.40 0.45 0.35 }
 	
 	ethos = ethos_bellicose
@@ -9,7 +9,7 @@ pulaar = {
 		tradition_laawol_pulaaku
 		tradition_griots
 		tradition_warriors_of_the_dry
-		tradition_sahel_pastoralists
+		tradition_fulbe_pastoralism
 		tradition_joking_relationships_serer_pulaar
 	}
 	

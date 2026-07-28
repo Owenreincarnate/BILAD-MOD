@@ -11,8 +11,8 @@ bilad_can_use_rezzou_intent_trigger = {
 	}
 }
 
-# RICE's exact Kel Tagelmust key is not present in this workspace.
-# Replace this body with the final tradition check when someone imports it.
 bilad_has_kel_tagelmust_trigger = {
-	always = no
+	culture = {
+		has_cultural_parameter = unlocks_bilad_ahal_gathering
+	}
 }

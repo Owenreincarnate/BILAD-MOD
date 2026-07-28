@@ -54,6 +54,50 @@
 	}
 }
 
+# Yusseter:
+# Local BILAD-owned fallback for the doc-requested Kel Tagelmust hook.
+# The task referenced a RICE tradition, but no usable RICE key exists in this checkout; replace this key if the team imports the final RICE version.
+tradition_kel_tagelmust = {
+	category = social
+
+	layers = {
+		0 = diplo
+		1 = mena
+		4 = instrument.dds
+	}
+
+	is_shown = {
+		has_cultural_pillar = heritage_imazighen
+	}
+	can_pick = {
+		has_cultural_pillar = heritage_imazighen
+	}
+
+	parameters = {
+		unlocks_bilad_ahal_gathering = yes
+	}
+
+	character_modifier = {
+		monthly_prestige = 0.1
+		attraction_opinion = 5
+	}
+
+	cost = {
+		prestige = {
+			add = {
+				value = tradition_base_cost
+				desc = BASE
+				format = "BASE_VALUE_FORMAT"
+			}
+			multiply = tradition_replacement_cost_if_relevant
+		}
+	}
+
+	ai_will_do = {
+		value = 120
+	}
+}
+
 tradition_tribal_confederations = {
 	category = realm
 

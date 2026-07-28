@@ -1,0 +1,13 @@
+﻿bilad_millet_beer_pub_visit_modifier = {
+	icon = diplomacy_positive
+	general_opinion = 3
+	stress_loss_mult = 0.05
+}
+
+bilad_sacred_blacksmith_work_modifier = {
+	icon = martial_positive
+	monthly_piety = 0.05
+	skirmishers_toughness_mult = 0.05
+	light_cavalry_toughness_mult = 0.05
+	heavy_cavalry_toughness_mult = 0.05
+}

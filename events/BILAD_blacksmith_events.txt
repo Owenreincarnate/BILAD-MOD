@@ -1,0 +1,28 @@
+﻿namespace = bilad_blacksmith
+
+bilad_blacksmith.0001 = {
+	type = character_event
+	title = bilad_blacksmith.0001.t
+	desc = bilad_blacksmith.0001.desc
+	theme = court
+	override_background = { reference = wilderness_desert }
+
+	left_portrait = {
+		character = root
+		animation = thinking
+	}
+
+	option = {
+		name = bilad_blacksmith.0001.a
+		add_piety = medium_piety_gain
+		add_character_modifier = {
+			modifier = bilad_sacred_blacksmith_work_modifier
+			years = 5
+		}
+	}
+
+	option = {
+		name = bilad_blacksmith.0001.b
+		add_prestige = minor_prestige_gain
+	}
+}

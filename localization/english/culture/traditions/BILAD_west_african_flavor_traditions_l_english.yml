@@ -1,0 +1,12 @@
+﻿l_english:
+ tradition_african_brewery_name: "African Brewery"
+ tradition_african_brewery_desc: "Beer houses and millet brewers anchor communal ritual life, turning harvest grain into hospitality, oath-making, and public celebration."
+ culture_parameter_allows_bilad_millet_beer_pubs: "Can construct $bilad_millet_beer_pubs_building_name$ buildings in castle, city, temple, and tribal holdings."
+ culture_parameter_visit_millet_beer_pubs_active: "Unlocks the #V Visit the Millet Beer Pubs#! decision when the realm has a Millet Beer Pubs building."
+ tradition_fulbe_pastoralism_name: "Fulbe Pastoralism"
+ tradition_fulbe_pastoralism_desc: "Fulbe herdsmen preserve long-distance grazing routes, herd knowledge, and the practical diplomacy needed to move people and cattle through contested lands."
+ culture_parameter_invite_aynaako_active: "Can use the #V Invite Aynaako#! decision."
+ culture_parameter_unlocks_bilad_aynaako_court_position: "Unlocks the #V Aynaako#! [court_position|E]."
+ tradition_renowned_blacksmiths_name: "Renowned Blacksmiths"
+ tradition_renowned_blacksmiths_desc: "The forge is a sacred craft as much as a practical art, supplying warriors, horsemen, and communities with iron shaped under ritual authority."
+ culture_parameter_unlocks_bilad_court_blacksmith: "Unlocks the #V Court Blacksmith#! [court_position|E]."

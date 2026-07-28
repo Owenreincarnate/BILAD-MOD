@@ -1,0 +1,123 @@
+﻿bilad_invite_aynaako_decision = {
+	picture = {
+		reference = "gfx/interface/illustrations/decisions/decision_recruitment.dds"
+	}
+
+	ai_check_interval = 0
+	sort_order = 55
+
+	is_shown = {
+		is_landed = yes
+		bilad_can_use_aynaako_content_trigger = yes
+	}
+
+	is_valid_showing_failures_only = {
+		is_adult = yes
+		is_imprisoned = no
+		gold >= 30
+	}
+
+	cost = {
+		gold = 30
+	}
+
+	cooldown = {
+		years = 5
+	}
+
+	effect = {
+		trigger_event = bilad_aynaako.0001
+	}
+
+	ai_potential = {
+		always = no
+	}
+
+	ai_will_do = {
+		base = 0
+	}
+}
+
+bilad_visit_millet_beer_pubs_decision = {
+	picture = {
+		reference = "gfx/interface/illustrations/decisions/decision_recruitment.dds"
+	}
+
+	ai_check_interval = 0
+	sort_order = 56
+
+	is_shown = {
+		is_landed = yes
+		bilad_can_use_millet_beer_pub_content_trigger = yes
+		bilad_has_millet_beer_pub_in_realm_trigger = yes
+	}
+
+	is_valid_showing_failures_only = {
+		is_adult = yes
+		is_imprisoned = no
+		gold >= 10
+	}
+
+	cost = {
+		gold = 10
+	}
+
+	cooldown = {
+		years = 3
+	}
+
+	effect = {
+		trigger_event = bilad_brewery.0001
+	}
+
+	ai_potential = {
+		always = no
+	}
+
+	ai_will_do = {
+		base = 0
+	}
+}
+
+bilad_commission_sacred_blacksmith_work_decision = {
+	picture = {
+		reference = "gfx/interface/illustrations/decisions/decision_smith.dds"
+	}
+
+	ai_check_interval = 0
+	sort_order = 57
+
+	is_shown = {
+		is_landed = yes
+		bilad_can_use_court_blacksmith_content_trigger = yes
+	}
+
+	is_valid_showing_failures_only = {
+		is_adult = yes
+		is_imprisoned = no
+		employs_court_position = bilad_court_blacksmith_court_position
+		gold >= 40
+		piety >= 75
+	}
+
+	cost = {
+		gold = 40
+		piety = 75
+	}
+
+	cooldown = {
+		years = 5
+	}
+
+	effect = {
+		trigger_event = bilad_blacksmith.0001
+	}
+
+	ai_potential = {
+		always = no
+	}
+
+	ai_will_do = {
+		base = 0
+	}
+}

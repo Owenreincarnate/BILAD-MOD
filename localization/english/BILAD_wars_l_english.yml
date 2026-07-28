@@ -1,0 +1,13 @@
+﻿l_english:
+ BILAD_COUNTER_REZZOU_CB_NAME: "Counter-Rezzou"
+ BILAD_COUNTER_REZZOU_WAR_NAME: "$ORDER$ [ATTACKER.GetPrimaryTitle.GetAdjective] Counter-Rezzou against [DEFENDER.GetPrimaryTitle.GetName]"
+ BILAD_COUNTER_REZZOU_WAR_NAME_BASE: "[ATTACKER.GetPrimaryTitle.GetAdjective][DEFENDER.GetPrimaryTitle.GetName] Counter-Rezzou"
+ bilad_counter_rezzou_cb_victory_desc: "[attacker.GetShortUIName|U] recovers stolen booty and gains [prestige_i][prestige|E]."
+ bilad_counter_rezzou_cb_white_peace_desc: "The counter-raid ends inconclusively, and the chance to recover the stolen booty is lost."
+ bilad_counter_rezzou_cb_defeat_desc: "[attacker.GetShortUIName|U] fails to recover the stolen booty and loses [prestige_i][prestige|E]."
+ bilad_counter_rezzou_cb: "$BILAD_COUNTER_REZZOU_CB_NAME$"
+ kurufaba_enforce_tribute_cb: "Enforce Tribute"
+ kurufaba_regional_subjugation_duchy_cb: "Kurufaba Duchy Subjugation"
+ kurufaba_regional_subjugation_kingdom_cb: "Kurufaba Kingdom Subjugation"
+ kurufaba_regional_subjugation_cb_defeat_desc_defender: "You remain independent and keep all your [titles|E]."
+ kurufaba_regional_subjugation_cb_defeat_desc: "[defender.GetShortUIName|U] remains independent and keeps all [defender.GetHerHis] [titles|E]."

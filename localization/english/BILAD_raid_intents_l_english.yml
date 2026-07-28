@@ -1,0 +1,6 @@
+﻿l_english:
+ bilad_rezzou_raid_intent: "Rezzou Raid"
+ bilad_rezzou_raid_intent_desc: "$bilad_rezzou_raid_intent_loot$\n$bilad_rezzou_raid_intent_flavor$"
+ bilad_rezzou_raid_intent_loot: "#bold Types of Loot:#!\n\t$BULLET$[gold_i][gold|E]: #V 100%#!\n\t$BULLET$[prestige_i][prestige|E]: #V 75% of loot value#!"
+ bilad_rezzou_raid_intent_flavor: "#weak Strike in the rainy season, when herds move and rival camps grow vulnerable.#!"
+ bilad_rezzou_raid_loot_message: "Rezzou Booty Secured"

@@ -1,0 +1,136 @@
+﻿namespace = bilad_aynaako
+
+bilad_aynaako.0001 = {
+	type = character_event
+	title = bilad_aynaako.0001.t
+	desc = bilad_aynaako.0001.desc
+	theme = court
+	override_background = { reference = wilderness_desert }
+
+	left_portrait = {
+		character = root
+		animation = thinking
+	}
+
+	right_portrait = {
+		character = scope:bilad_aynaako_candidate_1
+		animation = admiration
+	}
+
+	immediate = {
+		create_character = {
+			template = peasant_character
+			location = root.capital_province
+			culture = culture:pulaar
+			faith = root.faith
+			gender_female_chance = 0
+			age = { 25 45 }
+			random_traits = yes
+			trait = patient
+			trait = diligent
+			stewardship = { 8 14 }
+			diplomacy = { 6 12 }
+			save_scope_as = bilad_aynaako_candidate_1
+		}
+		create_character = {
+			template = peasant_character
+			location = root.capital_province
+			culture = culture:pulaar
+			faith = root.faith
+			gender_female_chance = 0
+			age = { 25 45 }
+			random_traits = yes
+			trait = calm
+			trait = honest
+			stewardship = { 7 13 }
+			diplomacy = { 7 13 }
+			save_scope_as = bilad_aynaako_candidate_2
+		}
+		create_character = {
+			template = peasant_character
+			location = root.capital_province
+			culture = culture:pulaar
+			faith = root.faith
+			gender_female_chance = 0
+			age = { 25 45 }
+			random_traits = yes
+			trait = brave
+			stewardship = { 6 12 }
+			diplomacy = { 6 12 }
+			save_scope_as = bilad_aynaako_candidate_3
+		}
+	}
+
+	option = {
+		name = bilad_aynaako.0001.a
+		add_courtier = scope:bilad_aynaako_candidate_1
+		if = {
+			limit = { NOT = { employs_court_position = bilad_aynaako_court_position } }
+			appoint_court_position = {
+				recipient = scope:bilad_aynaako_candidate_1
+				court_position = bilad_aynaako_court_position
+			}
+		}
+		else = {
+			random_court_position_holder = {
+				type = bilad_aynaako_court_position
+				save_scope_as = bilad_current_aynaako
+			}
+			replace_court_position = {
+				recipient = scope:bilad_aynaako_candidate_1
+				holder = scope:bilad_current_aynaako
+				court_position = bilad_aynaako_court_position
+			}
+		}
+	}
+
+	option = {
+		name = bilad_aynaako.0001.b
+		add_courtier = scope:bilad_aynaako_candidate_2
+		if = {
+			limit = { NOT = { employs_court_position = bilad_aynaako_court_position } }
+			appoint_court_position = {
+				recipient = scope:bilad_aynaako_candidate_2
+				court_position = bilad_aynaako_court_position
+			}
+		}
+		else = {
+			random_court_position_holder = {
+				type = bilad_aynaako_court_position
+				save_scope_as = bilad_current_aynaako
+			}
+			replace_court_position = {
+				recipient = scope:bilad_aynaako_candidate_2
+				holder = scope:bilad_current_aynaako
+				court_position = bilad_aynaako_court_position
+			}
+		}
+	}
+
+	option = {
+		name = bilad_aynaako.0001.c
+		add_courtier = scope:bilad_aynaako_candidate_3
+		if = {
+			limit = { NOT = { employs_court_position = bilad_aynaako_court_position } }
+			appoint_court_position = {
+				recipient = scope:bilad_aynaako_candidate_3
+				court_position = bilad_aynaako_court_position
+			}
+		}
+		else = {
+			random_court_position_holder = {
+				type = bilad_aynaako_court_position
+				save_scope_as = bilad_current_aynaako
+			}
+			replace_court_position = {
+				recipient = scope:bilad_aynaako_candidate_3
+				holder = scope:bilad_current_aynaako
+				court_position = bilad_aynaako_court_position
+			}
+		}
+	}
+
+	option = {
+		name = bilad_aynaako.0001.d
+	}
+}

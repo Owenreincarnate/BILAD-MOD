@@ -1,0 +1,22 @@
+﻿bilad_can_use_aynaako_content_trigger = {
+	culture = { has_cultural_parameter = invite_aynaako_active }
+}
+
+bilad_can_use_millet_beer_pub_content_trigger = {
+	culture = { has_cultural_parameter = visit_millet_beer_pubs_active }
+}
+
+# Yusseter:
+# Points to the local Millet Beer Pubs chain in common/buildings/BILAD_newbuilds.txt.
+# If Robbe supplies a final building chain later, replace the building key here instead of leaving a disabled placeholder.
+bilad_has_millet_beer_pub_in_realm_trigger = {
+	any_realm_county = {
+		any_county_province = {
+			has_building_or_higher = bilad_millet_beer_pubs_01
+		}
+	}
+}
+
+bilad_can_use_court_blacksmith_content_trigger = {
+	culture = { has_cultural_parameter = unlocks_bilad_court_blacksmith }
+}

@@ -8,9 +8,9 @@
 	head_determination = head_determination_herd
 	traditions = {
 		tradition_rezzou_raids
+		tradition_kel_tagelmust
 		tradition_tribal_confederations
 		tradition_saharan_nomads
-		# Someone will add the RICE Kel Tagelmust tradition after its exact key is imported.
 	}
 
 	# Temporary vanilla fallback until the dedicated Touareg name list is supplied.

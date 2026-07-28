@@ -2,6 +2,8 @@
 
 bilad_kurufaba.0001 = {
 	type = character_event
+	title = bilad_kurufaba.0001.t
+	desc = bilad_kurufaba.0001.desc
 	theme = realm
 
 	immediate = {

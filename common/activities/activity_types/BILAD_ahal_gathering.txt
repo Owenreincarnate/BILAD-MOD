@@ -1,7 +1,7 @@
 ﻿ahal_gathering = {
 	activity_group_type = activities
 	sort_order = 25
-	# This hook remains false until someone imports the exact RICE Kel Tagelmust key.
+	# Unlocked by the local Kel Tagelmust cultural tradition.
 	is_shown = {
 		bilad_has_kel_tagelmust_trigger = yes
 		highest_held_title_tier > tier_barony

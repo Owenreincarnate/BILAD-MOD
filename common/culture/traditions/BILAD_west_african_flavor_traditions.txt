@@ -1,0 +1,132 @@
+﻿tradition_african_brewery = {
+	category = ritual
+
+	layers = {
+		0 = learning
+		1 = mena
+		4 = crown.dds
+	}
+
+	is_shown = {
+		OR = {
+			has_cultural_pillar = heritage_west_african
+			has_cultural_pillar = heritage_senegambian
+		}
+	}
+
+	can_pick = {
+		OR = {
+			has_cultural_pillar = heritage_west_african
+			has_cultural_pillar = heritage_senegambian
+		}
+	}
+
+	parameters = {
+		allows_bilad_millet_beer_pubs = yes
+		visit_millet_beer_pubs_active = yes
+	}
+
+	character_modifier = {
+		stress_loss_mult = 0.05
+		same_culture_opinion = 5
+	}
+
+	cost = {
+		prestige = {
+			add = tradition_base_cost
+			if = {
+				limit = { has_cultural_pillar = heritage_west_african }
+				multiply = 0.75
+			}
+			if = {
+				limit = { has_cultural_pillar = heritage_senegambian }
+				multiply = 0.75
+			}
+		}
+	}
+
+	ai_will_do = {
+		value = 80
+	}
+}
+
+tradition_fulbe_pastoralism = {
+	category = realm
+
+	layers = {
+		0 = steward
+		1 = mena
+		4 = rider.dds
+	}
+
+	is_shown = {
+		has_cultural_pillar = heritage_senegambian
+	}
+
+	can_pick = {
+		has_cultural_pillar = heritage_senegambian
+	}
+
+	parameters = {
+		invite_aynaako_active = yes
+		unlocks_bilad_aynaako_court_position = yes
+	}
+
+	character_modifier = {
+		stewardship = 1
+		supply_limit_mult = 0.05
+	}
+
+	cost = {
+		prestige = {
+			add = tradition_base_cost
+			if = {
+				limit = { has_cultural_pillar = heritage_senegambian }
+				multiply = 0.75
+			}
+		}
+	}
+
+	ai_will_do = {
+		value = 120
+	}
+}
+
+tradition_renowned_blacksmiths = {
+	category = realm
+
+	layers = {
+		0 = martial
+		1 = mena
+		4 = knight.dds
+	}
+
+	is_shown = {
+		has_cultural_pillar = heritage_west_african
+	}
+
+	can_pick = {
+		has_cultural_pillar = heritage_west_african
+	}
+
+	parameters = {
+		unlocks_bilad_court_blacksmith = yes
+	}
+
+	character_modifier = {
+		monthly_piety = 0.1
+		skirmishers_toughness_mult = 0.03
+		light_cavalry_toughness_mult = 0.03
+		heavy_cavalry_toughness_mult = 0.03
+	}
+
+	cost = {
+		prestige = {
+			add = tradition_base_cost
+		}
+	}
+
+	ai_will_do = {
+		value = 100
+	}
+}

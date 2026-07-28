@@ -1,0 +1,4 @@
+﻿l_english:
+ bilad_offer_touareg_confederation_interaction: "Offer Saharan Berber Confederation"
+ bilad_offer_touareg_confederation_interaction_desc: "Offer [recipient.GetShortUIName] a place within a loose tribal confederation shaped by Saharan Berber political customs."
+ BILAD_OFFER_TOUAREG_CONFEDERATION_NOTIFICATION: "You have been invited to join a Saharan Berber confederation."

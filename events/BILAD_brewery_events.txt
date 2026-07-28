@@ -1,0 +1,66 @@
+﻿namespace = bilad_brewery
+
+bilad_brewery.0001 = {
+	type = character_event
+	title = bilad_brewery.0001.t
+	desc = bilad_brewery.0001.desc
+	theme = feast_activity
+	override_background = { reference = wilderness_desert }
+
+	left_portrait = {
+		character = root
+		animation = toast_goblet
+	}
+
+	immediate = {
+		random_courtier_or_guest = {
+			limit = {
+				is_adult = yes
+				is_imprisoned = no
+				NOT = { this = root }
+			}
+			save_scope_as = bilad_pub_companion
+		}
+	}
+
+	option = {
+		name = bilad_brewery.0001.a
+		stress_impact = {
+			base = medium_stress_impact_loss
+			gregarious = major_stress_impact_loss
+			shy = minor_stress_impact_loss
+		}
+		add_character_modifier = {
+			modifier = bilad_millet_beer_pub_visit_modifier
+			years = 1
+		}
+		if = {
+			limit = { exists = scope:bilad_pub_companion }
+			random_list = {
+				70 = { }
+				20 = {
+					scope:bilad_pub_companion = {
+						if = {
+							limit = { can_set_relation_friend_trigger = { CHARACTER = root } }
+							set_relation_friend = {
+								reason = bilad_friend_millet_beer_pub
+								target = root
+							}
+						}
+					}
+				}
+				10 = {
+					scope:bilad_pub_companion = {
+						if = {
+							limit = { can_set_relation_rival_trigger = { CHARACTER = root } }
+							set_relation_rival = {
+								reason = bilad_rival_millet_beer_pub
+								target = root
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+}
