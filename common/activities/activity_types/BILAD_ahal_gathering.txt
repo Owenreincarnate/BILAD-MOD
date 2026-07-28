@@ -1,7 +1,7 @@
 ﻿ahal_gathering = {
 	activity_group_type = activities
 	sort_order = 25
-	# Unlocked by the local Kel Tagelmust cultural tradition.
+	# Unlocked by the locally imported RICE Kel Tagelmust cultural tradition key.
 	is_shown = {
 		bilad_has_kel_tagelmust_trigger = yes
 		highest_held_title_tier > tier_barony

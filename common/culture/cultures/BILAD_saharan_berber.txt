@@ -8,7 +8,7 @@
 	head_determination = head_determination_herd
 	traditions = {
 		tradition_rezzou_raids
-		tradition_kel_tagelmust
+		tradition_RICE_tuareg
 		tradition_tribal_confederations
 		tradition_saharan_nomads
 	}

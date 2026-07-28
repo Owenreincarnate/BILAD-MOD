@@ -55,10 +55,10 @@
 }
 
 # Yusseter:
-# Local BILAD-owned fallback for the doc-requested Kel Tagelmust hook.
-# The task referenced a RICE tradition, but no usable RICE key exists in this checkout; replace this key if the team imports the final RICE version.
-tradition_kel_tagelmust = {
-	category = social
+# BILAD does not currently depend on RICE, so the RICE Kel Tagelmust key is imported locally.
+# The key stays tradition_RICE_tuareg for compatibility with doc hooks; RICE-only decision/activity unlocks are intentionally omitted.
+tradition_RICE_tuareg = {
+	category = regional
 
 	layers = {
 		0 = diplo
@@ -67,19 +67,45 @@ tradition_kel_tagelmust = {
 	}
 
 	is_shown = {
-		has_cultural_pillar = heritage_imazighen
+		OR = {
+			this = culture:touareg
+			any_parent_culture_or_above = {
+				this = culture:touareg
+			}
+		}
+		any_culture_county = {
+			any_county_province = {
+				geographical_region = world_africa
+			}
+		}
 	}
+
 	can_pick = {
-		has_cultural_pillar = heritage_imazighen
+		OR = {
+			this = culture:touareg
+			any_parent_culture_or_above = {
+				this = culture:touareg
+			}
+		}
+		custom_tooltip = {
+			text = BILAD_tuareg_african_counties_desc
+			any_culture_county = {
+				count >= 5
+				any_county_province = {
+					geographical_region = world_africa
+				}
+			}
+		}
 	}
 
 	parameters = {
 		unlocks_bilad_ahal_gathering = yes
+		number_of_spouses = 1
+		gender_equal_inheritance = yes
 	}
 
 	character_modifier = {
-		monthly_prestige = 0.1
-		attraction_opinion = 5
+		monthly_prestige_gain_per_happy_powerful_vassal_mult = 0.03
 	}
 
 	cost = {
@@ -89,12 +115,37 @@ tradition_kel_tagelmust = {
 				desc = BASE
 				format = "BASE_VALUE_FORMAT"
 			}
+			if = {
+				limit = {
+					NOR = {
+						culture_pillar:ethos_communal = { is_in_list = traits }
+						culture_pillar:ethos_egalitarian = { is_in_list = traits }
+						culture_pillar:ethos_stoic = { is_in_list = traits }
+					}
+				}
+				add = {
+					value = tradition_incompatible_ethos_penalty
+					desc = not_communal_egalitarian_or_stoic_desc
+				}
+			}
 			multiply = tradition_replacement_cost_if_relevant
 		}
 	}
 
 	ai_will_do = {
-		value = 120
+		value = 100
+		if = {
+			limit = {
+				culture_tradition:tradition_monogamous = { is_in_list = traits }
+			}
+			multiply = 0.25
+		}
+		if = {
+			limit = {
+				culture_tradition:tradition_equal_inheritance = { is_in_list = traits }
+			}
+			multiply = 0.25
+		}
 	}
 }
 
